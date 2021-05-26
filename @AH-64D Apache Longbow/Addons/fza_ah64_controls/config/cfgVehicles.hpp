@@ -891,7 +891,25 @@ class CfgVehicles
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
 			};
 		};
-		class MFD {};
+		class MFD
+		{
+			#include "cfgVehicles\mpd\mpd_defines.hpp"
+			#include "\fza_ah64_controls\headers\mfdConstants.h"
+			class UFD {
+				topLeft = "PLT_UFD_TL";
+				topRight = "PLT_UFD_TR";
+				bottomLeft = "PLT_UFD_BL";
+				#include "cfgVehicles\ufd\ufd.hpp"
+			};
+			#define MFD_IND_PAGE MFD_IND_PAGE_LEFT
+			#define MFD_OFFSET MFD_OFFSET_L
+			class MPD_L {
+				topLeft = "PLT_MPD_L_TL";
+				topRight = "PLT_MPD_L_TR";
+				bottomLeft = "PLT_MPD_L_BL";
+				#include "cfgVehicles\mpd\mpd.hpp"
+			};
+		};
 		
 		class AcreIntercoms
 		{

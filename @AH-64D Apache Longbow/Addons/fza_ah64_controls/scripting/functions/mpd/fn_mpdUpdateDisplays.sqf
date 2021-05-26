@@ -19,7 +19,7 @@ Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
+#include "\fza_ah64_controls\headers\mfdConstants.h"
 (_heli getVariable "fza_ah64_mpdPage") params ["_lmpdNext", "_rmpdNext"];
 (_heli getVariable "fza_ah64_mpdCurrPage") params ["_lmpdCurr", "_rmpdCurr"];
 
@@ -37,24 +37,22 @@ if ((_heli animationphase "plt_batt" > 0.5) && (_lmpdCurr == "OFF" || _rmpdCurr 
 if (_lmpdNext != _lmpdCurr) then {
 	// If the page has been changed since the last update.
 	switch (_lmpdCurr) do {
-		case "dms" : { [_heli] call fza_fnc_mpdLDMSDestruct; };
 		case "flt" : { [_heli] call fza_fnc_mpdLFLTDestruct; };
 		case "fuel" : { [_heli] call fza_fnc_mpdLFUELDestruct; };
 		case "wca" : { [_heli] call fza_fnc_mpdLWCADestruct; };
 		case "wpn" : { [_heli] call fza_fnc_mpdLWPNDestruct; };
 	};
 	switch (_lmpdNext) do {
-		case "dms" : { [_heli] call fza_fnc_mpdLDMSInit; };
-		case "flt" : { [_heli] call fza_fnc_mpdLFLTInit; };
-		case "fuel" : { [_heli] call fza_fnc_mpdLFUELInit; };
-		case "wca" : { [_heli] call fza_fnc_mpdLWCAInit; };
-		case "wpn" : { [_heli] call fza_fnc_mpdLWPNInit; };
+		case "dms" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_MENU];};
+		case "flt" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLFLTInit; };
+		case "fuel" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLFUELInit; };
+		case "wca" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLWCAInit; };
+		case "wpn" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLWPNInit; };
 	};
 	_lmpdCurr = _lmpdNext;
 };
 
 switch (_lmpdCurr) do {
-	case "dms" : { [_heli] call fza_fnc_mpdLDMSDraw; };
 	case "flt" : { [_heli] call fza_fnc_mpdLFLTDraw; };
 	case "fuel" : { [_heli] call fza_fnc_mpdLFUELDraw; };
 	case "wca" : { [_heli] call fza_fnc_mpdLWCADraw; };

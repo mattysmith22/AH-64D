@@ -16,37 +16,18 @@ Author:
     Unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
+#include "\fza_ah64_controls\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};
 _heli = _this select 0;
 
-_wcacall = {
-    _heli = _this select 0;
-    _start = _this select 1;
-    _end = _this select 2;
-    _list = _this select 3;
-    _counter = count _list - 1;
-    _selection = _start;
-    while {
-        (_counter >= 0 && _selection <= _end)
-    }
-    do {
-        _heli setobjecttexture[_selection, (_list select _counter)];
-        _selection = _selection + 1;
-        _counter = _counter - 1;
-        sleep 0.03;
-    };
-    if (count _list < 5) then {
-        _selection = _end;
-        while {
-            (_selection >= (count _list + _start))
-        }
-        do {
-            _heli setobjecttexture[_selection, ""];
-            _selection = _selection - 1;
-            sleep 0.03;
-        };
-    };
+_padLeft = {
+    params ["_str", "_len"];
+    private _add = [];
+    _add resize (_len - count _str);
+    _add = _add apply {" "};
+    _add pushBack _str;
+    _add joinString "";
 };
 
 while {
@@ -71,15 +52,6 @@ do {
             [_heli] call fza_fnc_controlHandleNextWaypoint;
         };
     };
-    /////////////////
-
-    _hour = round(floor daytime);
-    _min = round(floor((daytime - floor(daytime)) * 60));
-    _sec = floor((((daytime - floor daytime) * 60) - floor((daytime - floor daytime) * 60)) * 60);
-    
-    ///WCA///
-    _mags = _heli magazinesturret[-1];
-    _magsg = magazines _heli;
 
     ///end gunner weapon damage//
     if (_heli animationphase "plt_apu" > 0.5) then {
@@ -118,67 +90,54 @@ do {
     ///EWCA//
     //pilot
     if (_heli animationphase "plt_batt" > 0.5 || isengineon _heli) then {
-        _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
-        [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
-        [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;
-        [_heli, _hour, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_HR] call fza_fnc_drawNumberSelections;
-        [_heli, _min, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_MIN] call fza_fnc_drawNumberSelections;
-        [_heli, _sec, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_MIN] call fza_fnc_drawNumberSelections;
-        [_heli, _hour, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_HR] call fza_fnc_drawNumberSelections;
-        [_heli, _min, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_MIN] call fza_fnc_drawNumberSelections;
-        [_heli, _sec, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_MIN] call fza_fnc_drawNumberSelections;
+        _heli setUserMFDValue [MFD_IND_BATT, 1];
+        private _wcas = ([_heli] call fza_fnc_coreGetWCAs) select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
+        private _warnings = (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 2};
+        private _cautions = (_wcas select {_x # 0 == WCA_CAUTION}) apply {_x # 2};
+        private _advisories = (_wcas select {_x # 0 == WCA_ADVISORY}) apply {_x # 2};
 
-        _wcas = ([_heli] call fza_fnc_coreGetWCAs) select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
-        _warnings = (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 2};
-        _cautions = (_wcas select {_x # 0 == WCA_CAUTION}) apply {_x # 2};
-        _advisories = (_wcas select {_x # 0 == WCA_ADVISORY}) apply {_x # 2};
-        //advisories//
-        _a = [_heli, 1028, 1032, _advisories] call _wcacall;
-        //cautions//
-        _c = [_heli, 1033, 1037, _cautions] call _wcacall;
-        //warnings//
-        _w = [_heli, 1038, 1042, _warnings] call _wcacall;
-        //advisories//
-        _a = [_heli, 1053, 1057, _advisories] call _wcacall;
-        //cautions//
-        _c = [_heli, 1058, 1062, _cautions] call _wcacall;
-        //warnings//
-        _w = [_heli, 1063, 1067, _warnings] call _wcacall;
+        for "_i" from 0 to 5 do {
+            _heli setUserMFDText [MFD_IND_UFDTEXT0 + _i, format["%1|%2|%3",
+                if (count _warnings > _i) then {_warnings # _i} else {"          "},
+                if (count _cautions > _i) then {_cautions # _i} else {"           "},
+                if (count _advisories > _i) then {_advisories # _i} else {"          "}
+            ]];
+        };
+
+
+        if (isClass(configFile >> "cfgPatches" >> "acre_main") && {[_heli] call acre_api_fnc_areVehicleRacksInitialized}) then { //ACRE compatibility
+            private _ptts = [] call acre_api_fnc_getMultiPushToTalkAssignment;
+            private _racks = [_heli] call acre_api_fnc_getVehicleRacks;
+            private _radios = _racks apply {[_x] call acre_api_fnc_getMountedRackRadio};
+            private _radioNames = ["VH", "UH", "F1", "F2"];
+            private _radioOther = ["     L1", "C3   L2", "C5 H T1", "C2   L3"];
+            {
+                private _radio = _x;
+                private _radioBase = [_x] call acre_api_fnc_getBaseRadio;
+                private _radioChannel =  [_x] call acre_api_fnc_getRadioChannel;
+                private _radioPreset = [_x] call acre_api_fnc_getPreset;
+                private _ptt = _ptts findIf {_x == _radio};
+                private _transmit = if (_ptt == -1 || _ptt >= 3) then {"<"} else {str (_ptt+1)};
+                private _radioName = _radioNames # _forEachIndex;
+                private _frequencyTX = ([_radio, "getCurrentChannelData"] call acre_sys_data_fnc_dataEvent) getVariable "frequencyTx";
+                private _label = [_radioBase, "default", _radioChannel, "label"] call acre_api_fnc_getPresetChannelField;
+                if (isNil "_label") then {_label = "     "};
+                private _frequencyTXOut = [[_frequencyTX, 0, 3, false] call CBA_fnc_formatNumber, 7] call _padLeft;
+                private _radioChannelOut = [str _radioChannel, 6] call _padLeft;
+                private _labelOut = [_label select [0, 5], 5] call _padLeft; 
+                _heli setUserMFDText [MFD_IND_UFDTEXT0 + 5 + _forEachIndex, format["%1-%2 %3* %4 %5 %6 "
+                    ,_transmit, _radioName, _frequencyTXOut, _labelOut, _radioOther # _forEachIndex, _radioChannel
+                ]];
+            } forEach _radios;
+        } else {
+            _heli setUserMFDText [5, "<>VH 139.500* H8G65      L1 149.500"]; 
+            _heli setUserMFDText [6, "<>UH 240.500* P3R56 C3   L2 249.500"]; 
+            _heli setUserMFDText [7, "<>F1  39.075  J8L68 C5 H T1  45.500"]; 
+            _heli setUserMFDText [8, "<>F2  49.500  B5Z23 C2   L3  69.525"]; 
+        }
+
     } else {
-        _heli setobjecttexture [SEL_UFD_BACK, ""];
-        _heli setobjecttexture [SEL_P_UFD_CLK1, ""];
-        _heli setobjecttexture [SEL_P_UFD_CLK2, ""];
-        _heli setobjecttexture [SEL_P_UFD_CLK3, ""];
-        _heli setobjecttexture [SEL_P_UFD_CLK4, ""];
-        _heli setobjecttexture [SEL_P_UFD_CLK5, ""];
-        _heli setobjecttexture [SEL_P_UFD_CLK6, ""];
-        _heli setobjecttexture [SEL_P_UFD_FL1, ""];
-        _heli setobjecttexture [SEL_P_UFD_FL2, ""];
-        _heli setobjecttexture [SEL_P_UFD_FL3, ""];
-        _heli setobjecttexture [SEL_P_UFD_FL4, ""];
-        //advisories//
-        _a = [_heli, 1028, 1032, []] call _wcacall;
-        //cautions//
-        _c = [_heli, 1033, 1037, []] call _wcacall;
-        //warnings//
-        _w = [_heli, 1038, 1042, []] call _wcacall;
-        //gunner
-        _heli setobjecttexture [SEL_G_UFD_CLK1, ""];
-        _heli setobjecttexture [SEL_G_UFD_CLK2, ""];
-        _heli setobjecttexture [SEL_G_UFD_CLK3, ""];
-        _heli setobjecttexture [SEL_G_UFD_CLK4, ""];
-        _heli setobjecttexture [SEL_G_UFD_CLK5, ""];
-        _heli setobjecttexture [SEL_G_UFD_CLK6, ""];
-        _heli setobjecttexture [SEL_G_UFD_FL1, ""];
-        _heli setobjecttexture [SEL_G_UFD_FL2, ""];
-        _heli setobjecttexture [SEL_G_UFD_FL3, ""];
-        _heli setobjecttexture [SEL_G_UFD_FL4, ""];
-        //advisories//
-        _a = [_heli, 1053, 1057, []] call _wcacall;
-        //cautions//
-        _c = [_heli, 1058, 1062, []] call _wcacall;
-        //warnings//
-        _w = [_heli, 1063, 1067, []] call _wcacall;
+        _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");
     };
-    sleep 0.1;
+    sleep 1;
 };

@@ -115,10 +115,7 @@ class CfgFunctions
 			class mpdHandleZoom {R;};
 
 
-			class mpdLDMSDestruct {R;};
-			class mpdLDMSDraw {R;};
 			class mpdLDMSHandleControl {R;};
-			class mpdLDMSInit {R;};
 			class mpdLFLTDestruct {R;};
 			class mpdLFLTDraw {R;};
 			class mpdLFLTHandleControl {R;};

@@ -131,26 +131,3 @@ private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
 _heli addForce[_heli vectorModelToWorld _lift, _G];
-
-#ifdef __A3_DEBUG__
-hintsilent format ["Collective Out = %1
-                   \nStab Pos = %2
-                   \nCollective Low = %3
-                   \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];
-
-[_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
-
-//Draw the stabilator
-[_heli, _A, _B, _colorWhite] call DRAW_LINE;
-[_heli, _B, _C, _colorWhite] call DRAW_LINE;
-[_heli, _C, _D, _colorWhite] call DRAW_LINE;
-[_heli, _D, _A, _colorWhite] call DRAW_LINE;
-//Draw the fwd chord line originating from the pivot
-[_heli, _H, _H vectorAdd _stabLine, _colorWhite] call DRAW_LINE;
-//Draw the lift line
-[_heli, _E, _F, _colorGreen] call DRAW_LINE;
-//Draw the lift vector
-[_heli, _G, _G vectorAdd _liftVec, _colorBlue] call DRAW_LINE;
-//Draw the velocity vector
-[_heli, _H, _H vectorAdd _relWind, _colorRed] call DRAW_LINE;
-#endif
