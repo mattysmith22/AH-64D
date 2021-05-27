@@ -67,10 +67,75 @@ class HeadingTape {
     down[] = {0.25, 0.15};
 };
 
-class TestHorizon {
-    type = line;
-    width = 2;
-    points[] = {
-        {"Flt_Horizon", {-0.1, 0.0}, 1},
-        {"Flt_Horizon", {0.1, 0.0}, 1}};
+#define MPD_FLT_HORIZON_LINE_MAIN(angle, directionNum, directionName, horizonLineType, lineColour) class HorizonLine_##angle##_##directionName { \
+    condition = (horizonDive > rad (directionNum * angle - 31)) *(horizonDive < rad (directionNum * angle + 31)); \
+    color[] = lineColour; \
+    class horizontal { \
+        type = line; \
+        lineType = horizonLineType; \
+        width = 3; \
+        points[] = { \
+            {"Flt_Horizon", {0.7 * (-(0.04 + angle * 0.002)), 0.7 * (- directionNum * angle * 0.014)}, 1}, \
+            {"Flt_Horizon", {0.7 * (-(0.18 + angle * 0.002)), 0.7 * (- directionNum * angle * 0.014)}, 1}, \
+            {}, \
+            {"Flt_Horizon", {0.7 * (0.04 + angle * 0.002), 0.7 * (- directionNum * angle * 0.014)}, 1}, \
+            {"Flt_Horizon", {0.7 * (0.18 + angle * 0.002), 0.7 * (- directionNum * angle * 0.014)}, 1}}; \
+    }; \
+    class vertical { \
+        type = line; \
+        width = 3; \
+        points[] = { \
+            {"Flt_Horizon", {0.7 * (-(0.18 + angle * 0.002)), 0.7 * (- directionNum * angle * 0.014)}, 1}, \
+            {"Flt_Horizon", {0.7 * (-(0.18 + angle * 0.002)), 0.7 * ((- directionNum * angle * 0.014) + directionNum * 0.026)}, 1}, \
+            {}, \
+            {"Flt_Horizon", {0.7 * (0.18 + angle * 0.002), 0.7 * (- directionNum * angle * 0.014)}, 1}, \
+            {"Flt_Horizon", {0.7 * (0.18 + angle * 0.002), 0.7 * ((- directionNum * angle * 0.014) + directionNum * 0.026)}, 1}}; \
+    }; \
 };
+class testHorizon { \
+        type = line; \
+        width = 3; \
+        points[] = { \
+            {"Flt_Horizon", {-0.5, 0}, 1}, \
+            {"Flt_Horizon", {0.5, 0}, 1}, \
+    }; \
+};
+#define MPD_COLOUR_GROUND {0, 1, 1, 1}
+#define MPD_COLOUR_AIR {1, 0.78, 0.69, 1}
+#define MPD_FLT_HORIZON_LINE_MAIN_AIR(angle) MPD_FLT_HORIZON_LINE_MAIN(angle, -1,Ground, 2, MPD_COLOUR_AIR)
+#define MPD_FLT_HORIZON_LINE_MAIN_GROUND(angle) MPD_FLT_HORIZON_LINE_MAIN(angle, 1,Air, 0, MPD_COLOUR_GROUND)
+
+MPD_FLT_HORIZON_LINE_MAIN_AIR(10) 
+MPD_FLT_HORIZON_LINE_MAIN_AIR(20)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(30)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(40)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(50)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(60)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(70)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(80)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(90)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(100)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(110)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(120)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(130)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(140)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(150)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(160)
+MPD_FLT_HORIZON_LINE_MAIN_AIR(170)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(10)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(20)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(30)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(40)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(50)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(60)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(70)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(80)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(90)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(100)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(110)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(120)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(130)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(140)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(150)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(160)
+MPD_FLT_HORIZON_LINE_MAIN_GROUND(170)
