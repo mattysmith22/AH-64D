@@ -16,7 +16,13 @@
 #define MPD_POS_BUTTON_LR_5_Y 0.66
 #define MPD_POS_BUTTON_LR_6_Y 0.775
 
+#define COMMA ,
+
 #define MPD_SCALE_METERS_FEET 3.28084
+#define MPD_SCALE_MPS_KNOTS 1.94
+#define MPD_SCALE_METERS_PER_SECOND_FEET_PER_MINUTE 196.85
+#define MPD_SCALE_RADIANS_DEGREES 57.2958
+#define MPD_SCALE_METERS_KM 0.001
 
 #define MPD_POS_BUTTON_T_Y (0.01 + MPD_ARROW_PAD)
 #define MPD_POS_BUTTON_B_Y (0.970-0.043)
@@ -32,7 +38,58 @@
 
 #define MFD_USER_NUM(num) __EVAL(MFD_OFFSET + num)
 #define MPD_TEXT_STATIC(str)  source = static; text = str; sourceScale = 1;
-#define MPD_TEXT_USER(num) source = userText; sourceIndex = MFD_USER_NUM(num); sourceScale = 1;
+#define MPD_TEXT_USER(num) source = userText; sourceIndex = MFD_USER_NUM(num);
+#define MPD_NUM_USER(num) source = "user"; sourceIndex = MFD_USER_NUM(num);
+#define MPD_COND_USER(num) __EVAL(format ["user%1", MFD_OFFSET + num)
+#define STRINGIFY(str) #str
+
+#define MPD_POINTS_CURVED_CORNER(bone, posX, posY, vecX, vecY) \
+    {bone, {__EVAL(posX + vecX * cos 0), __EVAL(posY + vecY * sin 0)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 10), __EVAL(posY + vecY * sin 10)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 20), __EVAL(posY + vecY * sin 20)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 30), __EVAL(posY + vecY * sin 30)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 40), __EVAL(posY + vecY * sin 40)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 50), __EVAL(posY + vecY * sin 50)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 60), __EVAL(posY + vecY * sin 60)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 70), __EVAL(posY + vecY * sin 70)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 80), __EVAL(posY + vecY * sin 80)}, 1}, \
+    {bone, {__EVAL(posX + vecX * cos 90), __EVAL(posY + vecY * sin 90)}, 1}
+
+#define MPD_CIRCLE(name, bone, radius) class name##Circle { \
+    type = polygon; \
+    points[] = { \
+        { \
+            {bone, {__EVAL(radius * sin -30), __EVAL(radius * (0 - cos -30))}, 1}, \
+            {bone, {__EVAL(radius * sin 0), __EVAL(radius * (0 - cos 0))}, 1}, \
+            {bone, {__EVAL(radius * sin 30), __EVAL(radius * (0 - cos 30))}, 1}, \
+            {bone, {__EVAL(radius * sin 60), __EVAL(radius * (0 - cos 60))}, 1} \
+        }, \
+        { \
+            {bone, {__EVAL(radius * sin -60), __EVAL(radius * (0 - cos -60))}, 1}, \
+            {bone, {__EVAL(radius * sin -30), __EVAL(radius * (0 - cos -30))}, 1}, \
+            {bone, {__EVAL(radius * sin 60), __EVAL(radius * (0 - cos 60))}, 1}, \
+            {bone, {__EVAL(radius * sin 90), __EVAL(radius * (0 - cos 90))}, 1} \
+        }, \
+        { \
+            {bone, {__EVAL(radius * sin -90), __EVAL(radius * (0 - cos -90))}, 1}, \
+            {bone, {__EVAL(radius * sin -60), __EVAL(radius * (0 - cos -60))}, 1}, \
+            {bone, {__EVAL(radius * sin 90), __EVAL(radius * (0 - cos 90))}, 1}, \
+            {bone, {__EVAL(radius * sin 120), __EVAL(radius * (0 - cos 120))}, 1} \
+        }, \
+        { \
+            {bone, {__EVAL(radius * sin -120), __EVAL(radius * (0 - cos -120))}, 1}, \
+            {bone, {__EVAL(radius * sin -90), __EVAL(radius * (0 - cos -90))}, 1}, \
+            {bone, {__EVAL(radius * sin 120), __EVAL(radius * (0 - cos 120))}, 1}, \
+            {bone, {__EVAL(radius * sin 150), __EVAL(radius * (0 - cos 150))}, 1} \
+        }, \
+        { \
+            {bone, {__EVAL(radius * sin -120), __EVAL(radius * (0 - cos -120))}, 1}, \
+            {bone, {__EVAL(radius * sin 150), __EVAL(radius * (0 - cos 150))}, 1}, \
+            {bone, {__EVAL(radius * sin 180), __EVAL(radius * (0 - cos 180))}, 1}, \
+            {bone, {__EVAL(radius * sin -150), __EVAL(radius * (0 - cos -150))}, 1} \
+        } \
+    }; \
+};
 
 #define MPD_ARROW_R(name, startX, startY, numChars) class Mpd_Arrow_##name##_Line { \
     type = line; \
@@ -44,9 +101,11 @@
 class Mpd_Arrow_##name##_Triangle { \
     type = polygon; \
     points[] = { \
-        {{{startX + numChars * MPD_TEXT_WIDTH, startY - MPD_ARROW_PAD}, 1},\
-        {{startX + numChars * MPD_TEXT_WIDTH - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD - MPD_ARROW_HEIGHT}, 1},\
-        {{startX + numChars * MPD_TEXT_WIDTH - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD + MPD_ARROW_HEIGHT}, 1}}};\
+        { \
+            {{startX + numChars * MPD_TEXT_WIDTH, startY - MPD_ARROW_PAD}, 1},\
+            {{startX + numChars * MPD_TEXT_WIDTH - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD - MPD_ARROW_HEIGHT}, 1},\
+            {{startX + numChars * MPD_TEXT_WIDTH - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD + MPD_ARROW_HEIGHT}, 1}}\
+        };\
 };
 
 #define MPD_BOX_R(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \

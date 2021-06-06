@@ -22,7 +22,7 @@ class Draw
         #include "page_menu_draw.hpp"
     };
     class Flt {
-        condition = 1;
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FLT);
         #include "page_flt_draw.hpp"
     };
 };

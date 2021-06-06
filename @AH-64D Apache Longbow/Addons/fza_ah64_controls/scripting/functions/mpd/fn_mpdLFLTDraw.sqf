@@ -1,19 +1,20 @@
-params ["_heli"];
+params ["_heli", "_leftSide"];
 #include "\fza_ah64_controls\headers\selections.h"
-
+#include "\fza_ah64_controls\headers\mfdConstants.h"
+#define SCALE_METERS_FEET 3.28084
+#define SCALE_MPS_KNOTS 1.94
 private _2dvectTo3D = {[_this # 0, _this # 1, 0]};
 
-[_heli,  (getposasl _heli select 2) * 3.28084 / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_BALT] call fza_fnc_drawNumberSelections;
-[_heli,  (getpos _heli select 2) * 3.28084, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_RALT] call fza_fnc_drawNumberSelections;
+_padLeft = {
+    params ["_str", "_len"];
+    private _add = [];
+    _add resize (_len - count _str);
+    _add = _add apply {"0"};
+    _add pushBack _str;
+    _add joinString "";
+};
 
-
-private _airSpeedKnots = vectorMagnitude (velocity _heli vectorDiff wind) * 1.94;
-[_heli, _airSpeedKnots, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_SPD] call fza_fnc_drawNumberSelections;
-
-private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
-private _groundSpeedKnots = _groundSpeed * 1.94;
-[_heli, _groundSpeedKnots, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_GSPD] call fza_fnc_drawNumberSelections;
-
+/// Torque
 private _torque = 0;
 if (!difficultyEnabledRTD) then {
 	_torque = round(100 * ((0.25 * (2 - (inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25 * (inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))));
@@ -21,78 +22,67 @@ if (!difficultyEnabledRTD) then {
 if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) > 0) then {
 	_torque = round((enginesTorqueRTD _heli select 0) / 5.6);
 };
-[_heli, _torque, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_TRQ] call fza_fnc_drawNumberSelections;
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), str _torque + "%"];
 
-_waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
+//Altitude and speed
 
-_waypointDistance = (_waypoint distance2D getpos _heli);
-[_heli, _waypointDistance / 100, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_WR] call fza_fnc_drawNumberSelections;
+private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
+private _groundSpeedKnots = _groundSpeed * SCALE_MPS_KNOTS;
+private _airspeed = vectorMagnitude (velocity _heli vectorDiff wind);
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT), ((getposasl _heli select 2) / 10) toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), (getpos _heli select 2) toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * SCALE_MPS_KNOTS) toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GROUNDSPEED), _groundSpeedKnots toFixed 0];
 
-[_heli, direction _heli, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_DIR] call fza_fnc_drawNumberSelections;
+// Waypoint status window
 
-
+private _waypointIndex = _heli getVariable "fza_ah64_curwpnum";
+private _waypoint = (_heli getVariable "fza_ah64_waypointdata") select _waypointIndex;
+private _waypointDistance = (_waypoint distance2D getpos _heli);
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DESTINATION),  format["W%1", str (_waypointIndex), 2]];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DISTANCETOGO),  format["%1km", (_waypointDistance/1000) toFixed 1]];
 
 private _waypointDirection = [[_heli, (getposatl _heli # 0), (getposatl _heli # 1), (_waypoint # 0), (_waypoint # 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
-
-_vvect = [_heli] call fza_fnc_velocityVector;
-_vertvect = (_vvect select 0) + 0.5;
-_horvect = (_vvect select 1) + 0.6;
-
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_COMMAND_HEADING), _waypointDirection];
 
 private _waypointEta = call ([{60000}, {_waypointDistance / _groundSpeed}] select (_groundSpeedKnots >= 15));
 
 if (_waypointEta > 36000) then { //10 hours
-	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_FLT_TTG);
+	_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO),  ""];
 } else {
-	if (_waypointEta > 300) then { //5 min
+	if (_waypointEta < 300) then { //5 min
 		private _seconds = floor (_waypointEta % 60);
 		private _minutes = floor (_waypointEta / 60 % 10);
-		[_heli, _minutes * 100 + _seconds, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_TTG] call fza_fnc_drawNumberSelections;
+		_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO), format["%1:%2", _minutes, [str _seconds, 2] call _padLeft]];
 	} else {
 		private _minutes = floor (_waypointEta / 60 % 60);
 		private _hours = floor (_waypointEta / 3600 % 10);
-		[_heli, _hours * 100 + _minutes, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_TTG] call fza_fnc_drawNumberSelections;
-	}
+		_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO), format["%1:%2", _hours, [str _minutes, 2] call _padLeft]];
+	};
 };
 
-_turn = (fza_ah64_dps * -0.052083) + 0.5;
+// Navigation fly to cue
 
-if (_turn > 0.75) then {
-	_turn = 0.75;
-};
-if (_turn < 0.25) then {
-	_turn = 0.25;
-};
+private _flyToCueX = _waypointDirection;
+private _flyToCueY = (aglToAsl _waypoint # 2 - getPosAsl _heli # 2) atan2 (_waypoint distance2D getpos _heli);
 
-_slip = (fza_ah64_slip * 1.2) + 0.5;
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLY_TO_CUE_X), _flyToCueX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLY_TO_CUE_Y), _flyToCueY];
 
-if (_slip > 0.7) then {
-	_slip = 0.7;
-};
-if (_slip < 0.3) then {
-	_slip = 0.3;
-};
-//TODO: Make sure this is being constantly run by person who heli is local to
-if (local _heli) then {
-	_heli animateSource["mpd_pl_flt_wbear", (_waypointDirection * 0.00476) + 0.5];
-	_heli animateSource["mpd_pl_flt_wp_h", (_waypointDirection * 0.00476) + 0.625];
-	_heli animateSource["mpd_pl_flt_wp_v", _vertvect];
-	_heli animateSource["mpd_pl_flt_vvi_v", _vertvect];
-	_heli animateSource["mpd_pl_flt_vvi_h", _horvect];
-	_heli animateSource["mpd_pl_flt_rdr", ((_heli animationphase "longbow") * 2) + 0.5];
-	_heli animateSource["mpd_pl_flt_turn", _turn];
-	_heli animateSource["mpd_pl_flt_slip", _slip];
-};
+// Velocity Vector
 
-_heli setobjecttexture [SEL_MPD_PL_FLT_HI, ["", "\fza_ah64_us\tex\mpd\hi.paa"] select (getpos _heli select 2 > 304.8)];
-_heli setobjecttexture [SEL_MPD_PL_FLT_LO, ["", "\fza_ah64_us\tex\mpd\lo.paa"] select (getpos _heli select 2 < 6.1)];
+private _velocityX = [[_heli, 0, 0, velocity _heli # 0, velocity _heli # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
+private _velocityY = (velocity _heli # 2) atan2 ([0,0,0] distance2D velocity _heli);
 
-_heli setobjecttexture [SEL_MPD_PL_FLT_N20C, ["\fza_ah64_us\tex\mpd\flt_ca.paa", ""] select (_heli animationphase "mpd_pr_flt_bank" < -0.6)];
-_heli setobjecttexture [SEL_MPD_PL_FLT_P20C, ["\fza_ah64_us\tex\mpd\flt_ca.paa", ""] select (_heli animationphase "mpd_pr_flt_bank" > 0.6)];
-if (speed _heli > 5) then {
-	_heli setobjecttexture [SEL_MPD_PL_FLT_VVI, "\fza_ah64_us\tex\mpd\cue_ca.paa"];
-	_heli setobjecttexture [SEL_MPD_PL_FLT_WP, "\fza_ah64_us\tex\mpd\wp_ca.paa"];
-} else {
-	_heli setobjecttexture [SEL_MPD_PL_FLT_VVI, ""];
-	_heli setobjecttexture [SEL_MPD_PL_FLT_WP, ""];
-}; 
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLIGHT_PATH_X), _velocityX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLIGHT_PATH_Y), _velocityY];
+
+// Turn and slip indicator
+private _bank = (_heli call BIS_fnc_getPitchBank) # 1;
+private _bankForStandardTurn = (_airspeed * 1.944) / 10 + 7;
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_TURN), _bank / _bankForStandardTurn];
+
+private _airspeedModelRelative = _heli vectorWorldToModel (velocity _heli);
+private _slip = _airspeedModelRelative # 0 atan2 _airspeedModelRelative # 1;
+
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _slip];

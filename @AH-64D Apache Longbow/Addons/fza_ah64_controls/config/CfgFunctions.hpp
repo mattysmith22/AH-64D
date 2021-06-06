@@ -116,10 +116,8 @@ class CfgFunctions
 
 
 			class mpdLDMSHandleControl {R;};
-			class mpdLFLTDestruct {R;};
 			class mpdLFLTDraw {R;};
 			class mpdLFLTHandleControl {R;};
-			class mpdLFLTInit {R;};
 			class mpdLFUELDestruct {R;};
 			class mpdLFUELDraw {R;};
 			class mpdLFUELHandleControl {R;};
