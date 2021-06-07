@@ -1,5 +1,4 @@
 params ["_heli", "_leftSide"];
-#include "\fza_ah64_controls\headers\selections.h"
 #include "\fza_ah64_controls\headers\mfdConstants.h"
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
@@ -17,20 +16,22 @@ _padLeft = {
 /// Torque
 private _torque = 0;
 if (!difficultyEnabledRTD) then {
-	_torque = round(100 * ((0.25 * (2 - (inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25 * (inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))));
+	_torque = ([_heli] call fza_fnc_sfmplusGetData select 0) * 100;
 };
 if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) > 0) then {
 	_torque = round((enginesTorqueRTD _heli select 0) / 5.6);
 };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), str _torque + "%"];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), (_torque toFixed 0) + "%"];
 
 //Altitude and speed
 
 private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
 private _groundSpeedKnots = _groundSpeed * SCALE_MPS_KNOTS;
 private _airspeed = vectorMagnitude (velocity _heli vectorDiff wind);
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT), ((getposasl _heli select 2) / 10) toFixed 0];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), (getpos _heli select 2) toFixed 0];
+private _baroAlt  = getPosASL _heli # 2 * SCALE_METERS_FEET;
+private _radarAlt = getPos _heli # 2 * SCALE_METERS_FEET;
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT), (round (_baroAlt / 10) * 10) toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radarAlt toFixed 0, ""] select (_radarAlt > 1428)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * SCALE_MPS_KNOTS) toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GROUNDSPEED), _groundSpeedKnots toFixed 0];
 
@@ -83,6 +84,11 @@ private _bankForStandardTurn = (_airspeed * 1.944) / 10 + 7;
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_TURN), _bank / _bankForStandardTurn];
 
 private _airspeedModelRelative = _heli vectorWorldToModel (velocity _heli);
-private _slip = _airspeedModelRelative # 0 atan2 _airspeedModelRelative # 1;
+
+//This is good when < 24 kts
+private _slipHvrFlt = _bank;
+//This is good when > 24 kts
+private _slipFwdFlt = _airspeedModelRelative # 0 atan2 _airspeedModelRelative # 1;
+private _slip = linearConversion [0, 24, _groundSpeedKnots, _slipHvrFlt, _slipFwdFlt, true];
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _slip];

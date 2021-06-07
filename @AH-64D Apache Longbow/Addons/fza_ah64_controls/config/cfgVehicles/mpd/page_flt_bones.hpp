@@ -5,11 +5,6 @@ class Flt_Horizon {
     pos10[] = {0.57, 0.57};
 };
 
-class Flt_Null {
-    type = fixed;
-    pos[] = {0, 0};
-};
-
 class Flt_RadarAlt {
     type = linear;
     source = altitudeAGL

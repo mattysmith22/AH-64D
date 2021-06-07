@@ -40,20 +40,31 @@
 #define MPD_TEXT_STATIC(str)  source = static; text = str; sourceScale = 1;
 #define MPD_TEXT_USER(num) source = userText; sourceIndex = MFD_USER_NUM(num);
 #define MPD_NUM_USER(num) source = "user"; sourceIndex = MFD_USER_NUM(num);
-#define MPD_COND_USER(num) __EVAL(format ["user%1", MFD_OFFSET + num)
+#define MPD_COND_USER(num) __EVAL("user" + str (MFD_OFFSET + num))
 #define STRINGIFY(str) #str
 
 #define MPD_POINTS_CURVED_CORNER(bone, posX, posY, vecX, vecY) \
-    {bone, {__EVAL(posX + vecX * cos 0), __EVAL(posY + vecY * sin 0)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 10), __EVAL(posY + vecY * sin 10)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 20), __EVAL(posY + vecY * sin 20)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 30), __EVAL(posY + vecY * sin 30)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 40), __EVAL(posY + vecY * sin 40)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 50), __EVAL(posY + vecY * sin 50)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 60), __EVAL(posY + vecY * sin 60)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 70), __EVAL(posY + vecY * sin 70)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 80), __EVAL(posY + vecY * sin 80)}, 1}, \
-    {bone, {__EVAL(posX + vecX * cos 90), __EVAL(posY + vecY * sin 90)}, 1}
+    {bone, {__EVAL((posX) + (vecX) * cos 0),  __EVAL((posY) + (vecY) * sin 0)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 10), __EVAL((posY) + (vecY) * sin 10)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 20), __EVAL((posY) + (vecY) * sin 20)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 30), __EVAL((posY) + (vecY) * sin 30)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 40), __EVAL((posY) + (vecY) * sin 40)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 50), __EVAL((posY) + (vecY) * sin 50)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 60), __EVAL((posY) + (vecY) * sin 60)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 70), __EVAL((posY) + (vecY) * sin 70)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 80), __EVAL((posY) + (vecY) * sin 80)}, 1}, \
+    {bone, {__EVAL((posX) + (vecX) * cos 90), __EVAL((posY) + (vecY) * sin 90)}, 1}
+
+#define CURVED_BOX_PAD 0.0075
+#define MPD_POINTS_BOX(bone, posX, posY, width, height) \
+    MPD_POINTS_CURVED_CORNER(bone, posX, posY, -CURVED_BOX_PAD, -CURVED_BOX_PAD), {}, \
+    MPD_POINTS_CURVED_CORNER(bone, posX + width, posY, CURVED_BOX_PAD, -CURVED_BOX_PAD), {}, \
+    MPD_POINTS_CURVED_CORNER(bone, posX, posY + height, -CURVED_BOX_PAD, CURVED_BOX_PAD), {}, \
+    MPD_POINTS_CURVED_CORNER(bone, posX + width, posY + height, CURVED_BOX_PAD, CURVED_BOX_PAD), {}, \
+    {bone, {posX - CURVED_BOX_PAD, posY}, 1}, {bone, {posX - CURVED_BOX_PAD, posY + height}, 1}, {}, \
+    {bone, {posX + width + CURVED_BOX_PAD, posY}, 1}, {bone, {posX + width + CURVED_BOX_PAD, posY + height}, 1}, {}, \
+    {bone, {posX, posY - CURVED_BOX_PAD}, 1}, {bone, {posX + width, posY - CURVED_BOX_PAD}, 1}, {}, \
+    {bone, {posX, posY + height + CURVED_BOX_PAD}, 1}, {bone, {posX + width, posY + height + CURVED_BOX_PAD}, 1}
 
 #define MPD_CIRCLE(name, bone, radius) class name##Circle { \
     type = polygon; \

@@ -15,16 +15,16 @@ MPD_ARROW_R(FCR, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 3)
 MPD_TEXT_R(FCR, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("FCR"))
 
 class Mission_Lines {
-type = line;
-width = 3;
-points[] = {
-    {{0.02, 0.38}, 1},
-    {{0.11, 0.38}, 1},
-    {{0.11, 0.62 - 3.5 * MPD_TEXT_HEIGHT}, 1},
-    {},
-    {{0.11, 0.62 + 3.5 * MPD_TEXT_HEIGHT}, 1},
-    {{0.11, 0.86}, 1},
-    {{0.02, 0.86}, 1}};
+    type = line;
+    width = 3;
+    points[] = {
+        {{0.02, 0.38}, 1},
+        {{0.11, 0.38}, 1},
+        {{0.11, 0.62 - 3.5 * MPD_TEXT_HEIGHT}, 1},
+        {},
+        {{0.11, 0.62 + 3.5 * MPD_TEXT_HEIGHT}, 1},
+        {{0.11, 0.86}, 1},
+        {{0.02, 0.86}, 1}};
 };
 MPD_TEXT_C(MissionChar1, 0.11, 0.62 - 3.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
 MPD_TEXT_C(MissionChar2, 0.11, 0.62 - 2.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("I"))

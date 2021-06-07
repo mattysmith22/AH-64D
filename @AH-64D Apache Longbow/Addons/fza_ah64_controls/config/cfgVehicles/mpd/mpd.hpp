@@ -12,6 +12,10 @@ class material
 	emissive[]	= { 40, 40, 40, 1 };
 };
 class Bones {
+    class Null {
+        type = fixed;
+        pos[] = {0, 0};
+    };
     #include "page_flt_bones.hpp"
 };
 // HUD-Elements definitions
@@ -24,5 +28,8 @@ class Draw
     class Flt {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FLT);
         #include "page_flt_draw.hpp"
+    };
+    class Wca {
+        #include "page_wca_draw.hpp"
     };
 };

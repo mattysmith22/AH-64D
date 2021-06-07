@@ -38,15 +38,14 @@ if (_lmpdNext != _lmpdCurr) then {
 	// If the page has been changed since the last update.
 	switch (_lmpdCurr) do {
 		case "fuel" : { [_heli] call fza_fnc_mpdLFUELDestruct; };
-		case "wca" : { [_heli] call fza_fnc_mpdLWCADestruct; };
 		case "wpn" : { [_heli] call fza_fnc_mpdLWPNDestruct; };
 	};
 	switch (_lmpdNext) do {
-		case "off" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_FLT]; };
+		case "off" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; };
 		case "dms" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_MENU];};
 		case "flt" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_FLT];};
 		case "fuel" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLFUELInit; };
-		case "wca" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLWCAInit; };
+		case "wca" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF];};
 		case "wpn" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLWPNInit; };
 	};
 	_lmpdCurr = _lmpdNext;
@@ -55,7 +54,7 @@ if (_lmpdNext != _lmpdCurr) then {
 switch (_lmpdCurr) do {
 	case "flt" : { [_heli, true] call fza_fnc_mpdLFLTDraw; };
 	case "fuel" : { [_heli] call fza_fnc_mpdLFUELDraw; };
-	case "wca" : { [_heli] call fza_fnc_mpdLWCADraw; };
+	case "wca" : { [_heli, true] call fza_fnc_mpdLWCADraw; };
 	case "wpn" : { [_heli] call fza_fnc_mpdLWPNDraw; };
 };
 

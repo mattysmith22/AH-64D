@@ -240,16 +240,16 @@ class HorizonMiddle {
     };
 };
 
-class VerticalScaleBack {
+class VSIStatic {
     type = line;
     width = 3;
     points[] = {
         // Main markers
-        {{0.94, 0.25}, 1}, {{0.965, 0.25}, 1}, {}, {{0.98, 0.25}, 1}, {{1, 0.25}, 1}, {},
-        {{0.94, 0.375}, 1}, {{0.965, 0.375}, 1}, {}, {{0.98, 0.375}, 1}, {{1, 0.375}, 1}, {},
-        {{0.94, 0.5}, 1}, {{0.965, 0.5}, 1}, {}, {{0.98, 0.5}, 1}, {{1, 0.5}, 1}, {},
-        {{0.94, 0.625}, 1}, {{0.965, 0.625}, 1}, {}, {{0.98, 0.625}, 1}, {{1, 0.625}, 1}, {},
-        {{0.94, 0.75}, 1}, {{0.965, 0.75}, 1}, {}, {{0.98, 0.75}, 1}, {{1, 0.75}, 1}, {},
+        {{0.94, 0.25}, 1}, {{0.965, 0.25}, 1}, {},
+        {{0.94, 0.375}, 1}, {{0.965, 0.375}, 1}, {},
+        {{0.94, 0.5}, 1}, {{0.965, 0.5}, 1}, {},
+        {{0.94, 0.625}, 1}, {{0.965, 0.625}, 1}, {},
+        {{0.94, 0.75}, 1}, {{0.965, 0.75}, 1}, {},
 
         // Small markers (left)
         {{0.95, 0.4}, 1}, {{0.965, 0.4}, 1}, {},
@@ -260,26 +260,40 @@ class VerticalScaleBack {
         {{0.95, 0.55}, 1}, {{0.965, 0.55}, 1}, {},
         {{0.95, 0.575}, 1}, {{0.965, 0.575}, 1}, {},
         {{0.95, 0.6}, 1}, {{0.965, 0.6}, 1}, {},
-
-        // Small markers (right)
-        {{0.98, 0.65}, 1}, {{0.995, 0.65}, 1}, {},
-        {{0.98, 0.675}, 1}, {{0.995, 0.675}, 1}, {},
-        {{0.98, 0.7}, 1}, {{0.995, 0.7}, 1}, {},
-        {{0.98, 0.725}, 1}, {{0.995, 0.725}, 1}
     };
 };
-
-class RadarAltTape {
-    type = polygon;
-    points[] = {
-        {
-            {"Flt_RadarAlt", {0.965, 0.75}, 1},
-            {"Flt_RadarAlt", {0.98, 0.75}, 1},
-            {{0.98, 0.75}, 1},
-            {{0.965, 0.75}, 1}
-        }
+class RadarAltimeter {
+    condition = (altitudeAGL * MPD_SCALE_METERS_FEET) < 200;
+    class RadarAltTape {
+        type = polygon;
+        points[] = {
+            {
+                {"Flt_RadarAlt", {0.965, 0.75}, 1},
+                {"Flt_RadarAlt", {0.98, 0.75}, 1},
+                {{0.98, 0.75}, 1},
+                {{0.965, 0.75}, 1}
+            }
+        };
     };
-};
+    class RadarAltStatic {
+        type = line;
+        width = 3;
+        points[] = {
+            // Main markers
+            {{0.98, 0.25}, 1}, {{1, 0.25}, 1}, {},
+            {{0.98, 0.375}, 1}, {{1, 0.375}, 1}, {},
+            {{0.98, 0.5}, 1}, {{1, 0.5}, 1}, {},
+            {{0.98, 0.625}, 1}, {{1, 0.625}, 1}, {},
+            {{0.98, 0.75}, 1}, {{1, 0.75}, 1}, {},
+
+            // Small markers (right)
+            {{0.98, 0.65}, 1}, {{0.995, 0.65}, 1}, {},
+            {{0.98, 0.675}, 1}, {{0.995, 0.675}, 1}, {},
+            {{0.98, 0.7}, 1}, {{0.995, 0.7}, 1}, {},
+            {{0.98, 0.725}, 1}, {{0.995, 0.725}, 1}
+        };
+    }
+}
 
 class VerticalSpeedIndicator {
     type = polygon;
@@ -400,10 +414,10 @@ class WaypointBoxStatic {
     type = line;
     width = 3;
     points[] = {
-        MPD_POINTS_CURVED_CORNER(Flt_Null, 0.0725, 0.8530 - 2 * MPD_TEXT_HEIGHT, -0.015, -0.015), {}, // Top Left corner
-        MPD_POINTS_CURVED_CORNER(Flt_Null, 0.3425, 0.8530 - 2 * MPD_TEXT_HEIGHT, 0.015, -0.015), {}, // Top Right corner
-        MPD_POINTS_CURVED_CORNER(Flt_Null, 0.3425, 0.8515, 0.015, 0.015), {}, // Bottom Right corner
-        MPD_POINTS_CURVED_CORNER(Flt_Null, 0.0725, 0.8515, -0.015, 0.015), {}, // Bottom Left corner
+        MPD_POINTS_CURVED_CORNER(Null, 0.0725, 0.8530 - 2 * MPD_TEXT_HEIGHT, -0.015, -0.015), {}, // Top Left corner
+        MPD_POINTS_CURVED_CORNER(Null, 0.3425, 0.8530 - 2 * MPD_TEXT_HEIGHT, 0.015, -0.015), {}, // Top Right corner
+        MPD_POINTS_CURVED_CORNER(Null, 0.3425, 0.8515, 0.015, 0.015), {}, // Bottom Right corner
+        MPD_POINTS_CURVED_CORNER(Null, 0.0725, 0.8515, -0.015, 0.015), {}, // Bottom Left corner
         {{0.0725, 0.838 - 2 * MPD_TEXT_HEIGHT}, 1}, {{0.3425, 0.838 - 2 * MPD_TEXT_HEIGHT}, 1}, {}, //Top line
         {{0.0725, 0.8665}, 1}, {{0.3425, 0.8665}, 1}, {}, // Bottom Line
         {{0.0575, 0.85 - 2 * MPD_TEXT_HEIGHT}, 1}, {{0.0575, 0.85}, 1}, {}, // Left Line
