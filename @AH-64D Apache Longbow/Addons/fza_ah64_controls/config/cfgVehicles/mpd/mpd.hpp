@@ -3,7 +3,7 @@ helmetMountedDisplay = false;
 borderLeft=0;
 borderRight=0;
 borderTop=0;
-font="LucidaConsoleB";
+font="fza_txled";
 borderBottom=0;
 class material
 {
@@ -30,6 +30,7 @@ class Draw
         #include "page_flt_draw.hpp"
     };
     class Wca {
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WCA);
         #include "page_wca_draw.hpp"
     };
 };

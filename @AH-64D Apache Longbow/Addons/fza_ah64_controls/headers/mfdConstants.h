@@ -28,5 +28,6 @@
 #define MPD_PAGE_OFF 0
 #define MPD_PAGE_MENU 1
 #define MPD_PAGE_FLT 2
+#define MPD_PAGE_WCA 3
 
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_R, MFD_OFFSET_L] select _leftSide) + num)

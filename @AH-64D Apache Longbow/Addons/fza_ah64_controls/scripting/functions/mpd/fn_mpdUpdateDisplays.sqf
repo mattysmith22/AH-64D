@@ -45,7 +45,7 @@ if (_lmpdNext != _lmpdCurr) then {
 		case "dms" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_MENU];};
 		case "flt" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_FLT];};
 		case "fuel" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLFUELInit; };
-		case "wca" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF];};
+		case "wca" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_WCA];};
 		case "wpn" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; [_heli] call fza_fnc_mpdLWPNInit; };
 	};
 	_lmpdCurr = _lmpdNext;

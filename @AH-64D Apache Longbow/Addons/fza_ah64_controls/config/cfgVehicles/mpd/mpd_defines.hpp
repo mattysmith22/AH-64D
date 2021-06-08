@@ -1,6 +1,6 @@
-#define MPD_TEXT_HEIGHT 0.043
+#define MPD_TEXT_HEIGHT 0.0320
 #define MPD_TEXT_WIDTH 0.0235
-#define MPD_TEXT_WIDTH_VEC 0.038
+#define MPD_TEXT_WIDTH_VEC 0.028
 
 #define MPD_ARROW_PAD 0.007
 #define MPD_ARROW_LENGTH 0.01
@@ -135,7 +135,7 @@ class Mpd_Arrow_##name##_Triangle { \
     scale = 1; \
     pos[] = {{startX, startY}, 1}; \
     right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY}, 1}; \
-    down[] = {{startX, startY+MPD_TEXT_HEIGHT}, 1}; \
+    down[] = {{startX, startY+(MPD_TEXT_HEIGHT * 0.9)}, 1}; \
     config \
 };
 
