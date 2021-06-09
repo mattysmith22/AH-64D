@@ -70,7 +70,7 @@ class HeadingTape {
         scale = 1; \
         pos[] = {"Flt_Horizon", {startX, startY-(MPD_TEXT_HEIGHT/2*0.9)}, 1}; \
         right[] = {"Flt_Horizon", {(startX)+MPD_TEXT_WIDTH_VEC, startY-(MPD_TEXT_HEIGHT/2)}, 1}; \
-        down[] = {"Flt_Horizon", {startX, (startY)+(MPD_TEXT_HEIGHT/2*0.9)}, 1}; \
+        down[] = {"Flt_Horizon", {startX, (startY)+(MPD_TEXT_HEIGHT/2)}, 1}; \
         MPD_TEXT_STATIC(STRINGIFY(angle)) \
     };
 

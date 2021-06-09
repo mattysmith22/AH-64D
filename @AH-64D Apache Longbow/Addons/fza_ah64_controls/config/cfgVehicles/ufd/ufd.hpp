@@ -3,7 +3,7 @@ helmetMountedDisplay = false;
 borderLeft=0;
 borderRight=0;
 borderTop=0;
-font="EtelkaMonospacePro";
+font="fza_ticketing";
 borderBottom=0;
 class material
 {
@@ -17,7 +17,7 @@ class Draw
 {
     class UFDElements {
         condition = user0;
-        #define UFD_CHAR_WIDTH_VEC 0.061
+        #define UFD_CHAR_WIDTH_VEC 0.064
         #define UFD_CHAR_WIDTH (1/35)
         #define UFD_CHAR_HEIGHT 0.1
         class Line0
