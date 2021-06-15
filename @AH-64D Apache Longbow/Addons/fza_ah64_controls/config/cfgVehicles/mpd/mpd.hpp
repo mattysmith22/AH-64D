@@ -36,4 +36,8 @@ class Draw
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WCA);
         #include "page_wca_draw.hpp"
     };
+    class Fuel{
+        condition = 1;
+        #include "page_fuel_draw.hpp"
+    }
 };
