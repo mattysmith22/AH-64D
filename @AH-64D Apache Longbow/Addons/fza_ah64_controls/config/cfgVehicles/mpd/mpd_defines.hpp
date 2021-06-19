@@ -1,12 +1,12 @@
 // Text constants
-#define MPD_TEXT_HEIGHT 0.05
-#define MPD_TEXT_WIDTH 0.0240
-#define MPD_TEXT_WIDTH_VEC 0.05
+#define MPD_TEXT_HEIGHT 0.045
+#define MPD_TEXT_WIDTH 0.0205
+#define MPD_TEXT_WIDTH_VEC 0.045
 
 #define MPD_TEXT_SMALL_PAD 0.008
-#define MPD_TEXT_SMALL_HEIGHT 0.04
-#define MPD_TEXT_SMALL_WIDTH 0.02
-#define MPD_TEXT_SMALL_WIDTH_VEC 0.04
+#define MPD_TEXT_SMALL_HEIGHT 0.03
+#define MPD_TEXT_SMALL_WIDTH 0.018
+#define MPD_TEXT_SMALL_WIDTH_VEC 0.03
 
 // Drawing constants - used by macros below
 #define MPD_ARROW_PAD 0.007

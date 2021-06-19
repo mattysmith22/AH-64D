@@ -108,7 +108,7 @@ class TextBoxes {
     type = line;
     width = 3;
     points[] = {
-        MPD_POINTS_BOX("Null", 0.4375,0.165, 0.1175, 0.090), {},
+        MPD_POINTS_BOX("Null", 0.4425,0.18, 0.1075, 0.070), {},
         MPD_POINTS_BOX("Null", (0.5-0.05),0.4875,0.095,0.125)
     };
 };
