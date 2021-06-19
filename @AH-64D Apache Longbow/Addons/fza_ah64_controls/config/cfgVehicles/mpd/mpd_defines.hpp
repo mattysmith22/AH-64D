@@ -1,12 +1,20 @@
+// Text constants
 #define MPD_TEXT_HEIGHT 0.05
-#define MPD_TEXT_WIDTH 0.0200
+#define MPD_TEXT_WIDTH 0.0240
 #define MPD_TEXT_WIDTH_VEC 0.05
 
+#define MPD_TEXT_SMALL_PAD 0.008
+#define MPD_TEXT_SMALL_HEIGHT 0.04
+#define MPD_TEXT_SMALL_WIDTH 0.02
+#define MPD_TEXT_SMALL_WIDTH_VEC 0.04
+
+// Drawing constants - used by macros below
 #define MPD_ARROW_PAD 0.007
 #define MPD_ARROW_LENGTH 0.01
 #define MPD_ARROW_HEIGHT 0.006
 #define MPD_BOX_PAD 0.006
 
+// Common MPD position coordinates - edges of MPDs next to buttons
 #define MPD_POS_BUTTON_L_X 0.015
 #define MPD_POS_BUTTON_R_X 0.985
 #define MPD_POS_BUTTON_LR_1_Y 0.2
@@ -16,14 +24,6 @@
 #define MPD_POS_BUTTON_LR_5_Y 0.66
 #define MPD_POS_BUTTON_LR_6_Y 0.775
 
-#define COMMA ,
-
-#define MPD_SCALE_METERS_FEET 3.28084
-#define MPD_SCALE_MPS_KNOTS 1.94
-#define MPD_SCALE_METERS_PER_SECOND_FEET_PER_MINUTE 196.85
-#define MPD_SCALE_RADIANS_DEGREES 57.2958
-#define MPD_SCALE_METERS_KM 0.001
-
 #define MPD_POS_BUTTON_T_Y (0.01 + MPD_ARROW_PAD)
 #define MPD_POS_BUTTON_B_Y (0.970-0.043)
 #define MPD_POS_BUTTON_TB_1_X 0.21
@@ -32,6 +32,16 @@
 #define MPD_POS_BUTTON_TB_4_X 0.57
 #define MPD_POS_BUTTON_TB_5_X 0.69
 #define MPD_POS_BUTTON_TB_6_X 0.81
+
+#define COMMA ,
+
+// Source scales
+#define MPD_SCALE_METERS_FEET 3.28084
+#define MPD_SCALE_MPS_KNOTS 1.94
+#define MPD_SCALE_METERS_PER_SECOND_FEET_PER_MINUTE 196.85
+#define MPD_SCALE_RADIANS_DEGREES 57.2958
+#define MPD_SCALE_METERS_KM 0.001
+
 
 #define EQ(A,B) (((A)>((B) - 1))*((A)<((B) + 1)))
 #define USER_NUM(num) user##num
@@ -132,15 +142,27 @@ class Mpd_Arrow_##name##_Triangle { \
 
 #define MPD_TEXT(name, startX, startY, config) class Mpd_Text_##name { \
     type = text; \
-    scale = 46; \
+    scale = 1; \
     pos[] = {{startX, startY}, 1}; \
     right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY}, 1}; \
     down[] = {{startX, startY+(MPD_TEXT_HEIGHT)}, 1}; \
     config \
 };
 
-#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT(name, startX, startY, align = right; config)
+#define MPD_TEXT_SMALL(name, startX, startY, config) class Mpd_Text_##name { \
+    type = text; \
+    scale = 1; \
+    pos[] = {{startX, startY}, 1}; \
+    right[] = {{startX+MPD_TEXT_SMALL_WIDTH_VEC, startY}, 1}; \
+    down[] = {{startX, startY+(MPD_TEXT_SMALL_HEIGHT)}, 1}; \
+    config \
+};
 
+#define MPD_TEXT_SMALL_R(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = right; config)
+#define MPD_TEXT_SMALL_C(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = center; config)
+#define MPD_TEXT_SMALL_L(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = left; config)
+
+#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT(name, startX, startY, align = right; config)
 #define MPD_TEXT_C(name, startX, startY, config) MPD_TEXT(name, startX, startY, align = center; config)
 #define MPD_TEXT_L(name, startX, startY, config) MPD_TEXT(name, startX, startY, align = left; config)
 

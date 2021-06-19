@@ -7,8 +7,8 @@ font="fza_ticketing";
 borderBottom=0;
 class material
 {
-	ambient[]	= { 5, 5, 5, 1 };
-	diffuse[]	= { 8, 8, 8, 1 };
+	ambient[]	= { 1, 1, 1, 1 };
+	diffuse[]	= { 1, 1, 1, 1 };
 	emissive[]	= { 30, 30, 30, 1 };
 };
 class Bones {};
