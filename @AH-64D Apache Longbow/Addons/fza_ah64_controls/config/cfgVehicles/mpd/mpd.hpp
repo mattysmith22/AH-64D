@@ -1,4 +1,4 @@
-color[] = {0, 1, 0.02, 1};
+color[] = {0.2, 1, 0, 0.85};
 helmetMountedDisplay = false;
 borderLeft=0;
 borderRight=0;

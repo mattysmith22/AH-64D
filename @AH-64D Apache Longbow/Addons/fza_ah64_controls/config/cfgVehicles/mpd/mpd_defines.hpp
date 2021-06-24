@@ -115,17 +115,17 @@
 #define MPD_ARROW_R(name, startX, startY, numChars) class Mpd_Arrow_##name##_Line { \
     type = line; \
     points[] = { \
-        {{startX, startY - MPD_ARROW_PAD}, 1}, \
-        {{startX + numChars * MPD_TEXT_WIDTH - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}}; \
+        {{startX + MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}, \
+        {{startX + numChars * MPD_TEXT_WIDTH - 0.003 - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}}; \
     width = 3; \
 }; \
 class Mpd_Arrow_##name##_Triangle { \
     type = polygon; \
     points[] = { \
         { \
-            {{startX + numChars * MPD_TEXT_WIDTH, startY - MPD_ARROW_PAD}, 1},\
-            {{startX + numChars * MPD_TEXT_WIDTH - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD - MPD_ARROW_HEIGHT}, 1},\
-            {{startX + numChars * MPD_TEXT_WIDTH - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD + MPD_ARROW_HEIGHT}, 1}}\
+            {{startX + numChars * MPD_TEXT_WIDTH - 0.001, startY - MPD_ARROW_PAD}, 1},\
+            {{startX + numChars * MPD_TEXT_WIDTH - 0.003 - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD - MPD_ARROW_HEIGHT}, 1},\
+            {{startX + numChars * MPD_TEXT_WIDTH - 0.003 - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD + MPD_ARROW_HEIGHT}, 1}}\
         };\
 };
 
@@ -171,3 +171,17 @@ class Mpd_Arrow_##name##_Triangle { \
 
 #define MPD_BOX_C(name, startX, startY, numChars) MPD_BOX_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
 #define MPD_BOX_L(name, startX, startY, numChars) MPD_BOX_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
+
+#define MPD_BOX_ARROW_R(name, startX, startY, numChars) class Mpd_Box_Arrow_##name##_Line { \
+    type = line; \
+    width = 2; \
+    points[] = { \
+        {{startX - MPD_BOX_PAD, startY - MPD_BOX_PAD - MPD_ARROW_HEIGHT - 0.5 * MPD_ARROW_PAD}, 1}, \
+        {{startX + MPD_BOX_PAD + numChars * MPD_TEXT_WIDTH, startY - MPD_BOX_PAD- MPD_ARROW_HEIGHT - 0.5 * MPD_ARROW_PAD}, 1}, \
+        {{startX + MPD_BOX_PAD + numChars * MPD_TEXT_WIDTH, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD}, 1}, \
+        {{startX - MPD_BOX_PAD, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD}, 1}, \
+        {{startX - MPD_BOX_PAD, startY - MPD_BOX_PAD - MPD_ARROW_HEIGHT - 0.5 * MPD_ARROW_PAD}, 1}}; \
+};
+
+#define MPD_BOX_ARROW_C(name, startX, startY, numChars) MPD_BOX_ARROW_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
+#define MPD_BOX_ARROW_L(name, startX, startY, numChars) MPD_BOX_ARROW_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
