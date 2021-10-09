@@ -35,7 +35,7 @@ if (_scale == -1) then {
 #define MPD_X_MAX 0.9
 #define MPD_Y_MIN 0.1
 #define MPD_Y_MAX 0.9
-
+/*
 // Calculate the position of all points
 _points = _points apply {
 	_x params ["_pos", "_tex", "_priority"];
@@ -90,3 +90,4 @@ for "_i" from 0 to 31 do {
 		_heli animateSource[format ["mpd_gr_obj%1_z", _forEachIndex + 1], _priority];
 	};
 } forEach (_points);
+*/

@@ -13,6 +13,7 @@ if (fza_ah64_cmsel == 1) then {
 };
 */
 
+/*
 _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
 
 _flareCount = 0;
@@ -118,3 +119,4 @@ private _objects = fza_ah64_asethreatsdraw apply {
 };
 
 [_heli, _objects, true, (_heli getVariable "fza_ah64_rangesetting") * 0.4, [0.5,0.5]] call fza_fnc_mpdUpdatePoints;
+*/

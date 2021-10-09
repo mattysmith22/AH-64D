@@ -1,6 +1,7 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
+/*
 _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
 _heli setobjecttexture [SEL_MPD_PR_ENG_1NPB, ""];
 _heli setobjecttexture [SEL_MPD_PR_ENG_1TGT_1, ""];
@@ -97,3 +98,4 @@ _heli setobjecttexture [SEL_MPD_PR_ENG_1PRIPSI2, ""];
 _heli setobjecttexture [SEL_MPD_PR_ENG_1PRIPSI3, ""];
 _heli setobjecttexture [SEL_MPD_PR_ENG_1PRIPSI4, ""];
 _heli setobjecttexture [SEL_MPD_PR_ENG_BACK, ""];
+*/

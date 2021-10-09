@@ -11,7 +11,7 @@ if (currentweapon _heli == "fza_ma_safe") then {
 } else {
 	_heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\WPN.paa"];
 };
-
+/*
 //FLARES
 _flareCount = 0;
 {
@@ -222,3 +222,4 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 _heli setobjecttexture [SEL_MPD_PL_RG_BASE, _rgbracket];
 _heli setobjecttexture [SEL_MPD_PL_RG_BRACKET, _rgbracket];
 _heli setobjecttexture [SEL_MPD_PL_RKT_BURST, _rgbracket];
+*/

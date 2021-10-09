@@ -1,6 +1,7 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
+/*
 // #region ENGINE 1
 _e1data = [_heli, 0] call fza_fnc_engineGetData;
 _e1percent = (_e1data select 0) / 209.0;
@@ -221,3 +222,4 @@ if (getpos _heli select 2 > 1) then {
 	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_1UTIPSI);
 	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_1ACCPSI);
 };
+*/

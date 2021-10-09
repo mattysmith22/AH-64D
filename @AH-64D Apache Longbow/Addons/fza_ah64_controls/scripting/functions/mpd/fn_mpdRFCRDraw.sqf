@@ -1,6 +1,6 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
-
+/*
 if (_heli animationphase "fcr_enable" == 0) exitWith {
 	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\grnd.paa"];  //change this with FCR not installed backround
 	_heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
@@ -72,3 +72,4 @@ if (_heli getVariable "fza_ah64_agmode" == 1) then {
 } else {
 	[_heli, _targetsToDraw, false, 0.000125 * 0.60, [0.51, 0.18]] call fza_fnc_mpdUpdatePoints;
 }
+*/

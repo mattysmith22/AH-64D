@@ -23,7 +23,7 @@ Author:
 #include "\fza_ah64_controls\headers\selections.h"
 
 params ["_heli"];
-
+/*
 if !(player == driver _heli || player == gunner _heli) exitWith {};
 _seat = ["cpg", "plt"] select (player == driver _heli);
 
@@ -50,3 +50,4 @@ if (fza_ah64_tsdmap > 0) then {
 	_heli animateSource [_seat+"_mmap_r", 0, true];
 	_heli animateSource [_seat+"_mmap_sc", 1 , true];
 };
+*/

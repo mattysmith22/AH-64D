@@ -1,6 +1,6 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
-
+/*
 [_heli] call FZA_fnc_mpdUpdateMap;
 
 _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (_heli getVariable "fza_ah64_tsdsort") do {
@@ -102,3 +102,4 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 
 	[_heli, _waypointsToDraw, false, (_heli getVariable "fza_ah64_rangesetting") * 1.02, [0.5, 0.27]] call fza_fnc_mpdUpdatePoints;
 };
+*/

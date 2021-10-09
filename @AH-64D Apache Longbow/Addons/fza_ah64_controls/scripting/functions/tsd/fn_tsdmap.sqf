@@ -32,6 +32,7 @@ if (fza_ah64_tsdmap == _mapcount) exitwith {
     fza_ah64_tsdmap = 0;
 };
 fza_ah64_tsdmap = fza_ah64_tsdmap + 1;
-
+/*
 _heli setobjecttexture [SEL_MPD_PL_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
 _heli setobjecttexture [SEL_MPD_GR_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"]; 
+*/

@@ -1,6 +1,7 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
+/*
 _heli setobjecttexture [SEL_MPD_PR_TSD_BASE, ""];
 _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
 _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, ""];
@@ -36,3 +37,4 @@ if (player == driver _heli || player == gunner _heli) then {
 	_heli animateSource [_seat+"_mmap_r", 0, true];
 	_heli animateSource [_seat+"_mmap_sc", 1 , true];
 };
+*/
