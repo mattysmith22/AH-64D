@@ -12,7 +12,7 @@ class material
 {
 	ambient[]	= { 1, 1, 1, 1 };
 	diffuse[]	= { 1, 1, 1, 1 };
-	emissive[]	= { 200, 200, 200, 1 };
+	emissive[]	= { 20, 20, 20, 1 };
 };
 class Bones {
     class Null {
@@ -20,6 +20,7 @@ class Bones {
         pos[] = {0, 0};
     };
     #include "page_flt_bones.hpp"
+    #include "page_eng_bones.hpp"
 };
 // HUD-Elements definitions
 class Draw
@@ -36,8 +37,12 @@ class Draw
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WCA);
         #include "page_wca_draw.hpp"
     };
+    class Eng{
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_ENG);
+        #include "page_eng_draw.hpp"
+    };
     class Fuel{
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FUEL);
         #include "page_fuel_draw.hpp"
-    }
+    };
 };

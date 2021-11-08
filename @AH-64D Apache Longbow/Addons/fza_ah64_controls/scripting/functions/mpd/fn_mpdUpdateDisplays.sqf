@@ -42,6 +42,7 @@ if (_lmpdNext != _lmpdCurr) then {
 	};
 	switch (_lmpdNext) do {
 		case "off" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_OFF]; };
+		case "eng" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_ENG]; };
 		case "dms" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_MENU];};
 		case "flt" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_FLT];};
 		case "fuel" : { _heli setUserMfdValue[MFD_IND_PAGE_LEFT, MPD_PAGE_FUEL]; };
@@ -56,6 +57,7 @@ switch (_lmpdCurr) do {
 	case "fuel" : { [_heli, true] call fza_fnc_mpdLFUELDraw; };
 	case "wca" : { [_heli, true] call fza_fnc_mpdLWCADraw; };
 	case "wpn" : { [_heli] call fza_fnc_mpdLWPNDraw; };
+	case "eng" : { [_heli, true] call fza_fnc_mpdLENGDraw; };
 };
 
 // Right MPD checks

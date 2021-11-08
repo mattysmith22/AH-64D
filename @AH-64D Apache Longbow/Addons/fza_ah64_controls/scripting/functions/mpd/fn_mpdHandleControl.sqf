@@ -65,8 +65,8 @@ if(_system == "lmpd") then {
 		case "wpn": {
 			[_heli, _system, _control] call fza_fnc_mpdLWPNHandleControl;
 		};
-		case "wca": {
-			[_heli, _system, _control] call fza_fnc_mpdWCAHandleControl;
+		case "eng": {
+			[_heli, _system, _control] call fza_fnc_mpdLENGHandleControl;
 		};
 	};
 };

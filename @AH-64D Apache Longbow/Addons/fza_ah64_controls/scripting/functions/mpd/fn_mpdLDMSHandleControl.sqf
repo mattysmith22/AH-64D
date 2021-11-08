@@ -1,8 +1,12 @@
 params ["_heli", "_system", "_control"];
 
+ systemChat str _this;
 switch(_control) do {
 	case "b2": {
 		[_heli, 0, "flt"] call fza_fnc_mpdSetDisplay;
+	};
+	case "b1": {
+		[_heli, 0, "eng"] call fza_fnc_mpdSetDisplay;
 	};
 	case "b3": {
 		[_heli, 0, "fuel"] call fza_fnc_mpdSetDisplay;

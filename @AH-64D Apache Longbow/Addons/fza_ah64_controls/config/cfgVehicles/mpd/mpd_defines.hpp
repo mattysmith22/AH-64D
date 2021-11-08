@@ -34,6 +34,8 @@
 #define MPD_POS_BUTTON_TB_6_X 0.81
 
 #define COMMA ,
+#define CONCAT_2(x,y) x##y
+#define CONCAT_3(x,y,z) x##y##z
 
 // Source scales
 #define MPD_SCALE_METERS_FEET 3.28084
@@ -140,12 +142,12 @@ class Mpd_Arrow_##name##_Triangle { \
         {{startX - MPD_BOX_PAD, startY - MPD_BOX_PAD}, 1}}; \
 };
 
-#define MPD_TEXT(name, startX, startY, config) class Mpd_Text_##name { \
+#define MPD_TEXT(name, bone, startX, startY, config) class Mpd_Text_##name { \
     type = text; \
     scale = 1; \
-    pos[] = {{startX, startY}, 1}; \
-    right[] = {{startX+MPD_TEXT_WIDTH_VEC, startY}, 1}; \
-    down[] = {{startX, startY+(MPD_TEXT_HEIGHT)}, 1}; \
+    pos[] = {bone, {startX, startY}, 1}; \
+    right[] = {bone, {startX+MPD_TEXT_WIDTH_VEC, startY}, 1}; \
+    down[] = {bone, {startX, startY+(MPD_TEXT_HEIGHT)}, 1}; \
     config \
 };
 
@@ -158,13 +160,17 @@ class Mpd_Arrow_##name##_Triangle { \
     config \
 };
 
+#define MPD_TEXT_BONE_R(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = right; config)
+#define MPD_TEXT_BONE_C(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = center; config)
+#define MPD_TEXT_BONE_L(name, bone, startX, startY, config) MPD_TEXT(name, bone, startX, startY, align = left; config)
+
 #define MPD_TEXT_SMALL_R(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = right; config)
 #define MPD_TEXT_SMALL_C(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = center; config)
 #define MPD_TEXT_SMALL_L(name, startX, startY, config) MPD_TEXT_SMALL(name, startX, startY, align = left; config)
 
-#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT(name, startX, startY, align = right; config)
-#define MPD_TEXT_C(name, startX, startY, config) MPD_TEXT(name, startX, startY, align = center; config)
-#define MPD_TEXT_L(name, startX, startY, config) MPD_TEXT(name, startX, startY, align = left; config)
+#define MPD_TEXT_R(name, startX, startY, config) MPD_TEXT(name, Null, startX, startY, align = right; config)
+#define MPD_TEXT_C(name, startX, startY, config) MPD_TEXT(name, Null, startX, startY, align = center; config)
+#define MPD_TEXT_L(name, startX, startY, config) MPD_TEXT(name, Null, startX, startY, align = left; config)
 
 #define MPD_ARROW_C(name, startX, startY, numChars) MPD_ARROW_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
 #define MPD_ARROW_L(name, startX, startY, numChars) MPD_ARROW_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)

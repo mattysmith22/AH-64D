@@ -116,6 +116,8 @@ class CfgFunctions
 
 
 			class mpdLDMSHandleControl {R;};
+			class mpdLENGDraw {R;};
+			class mpdLENGHandleControl {R;};
 			class mpdLFLTDraw {R;};
 			class mpdLFLTHandleControl {R;};
 			class mpdLFUELDraw {R;};
