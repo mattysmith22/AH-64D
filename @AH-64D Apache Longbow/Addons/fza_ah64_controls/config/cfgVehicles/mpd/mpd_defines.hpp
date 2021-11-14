@@ -12,7 +12,8 @@
 #define MPD_ARROW_PAD 0.007
 #define MPD_ARROW_LENGTH 0.01
 #define MPD_ARROW_HEIGHT 0.006
-#define MPD_BOX_PAD 0.006
+#define MPD_BOX_PAD_X 0.006
+#define MPD_BOX_PAD_Y 0.000
 
 // Common MPD position coordinates - edges of MPDs next to buttons
 #define MPD_POS_BUTTON_L_X 0.015
@@ -44,7 +45,6 @@
 #define MPD_SCALE_RADIANS_DEGREES 57.2958
 #define MPD_SCALE_METERS_KM 0.001
 
-
 #define EQ(A,B) (((A)>((B) - 1))*((A)<((B) + 1)))
 #define USER_NUM(num) user##num
 
@@ -68,15 +68,19 @@
     {bone, {__EVAL((posX) + (vecX) * cos 90), __EVAL((posY) + (vecY) * sin 90)}, 1}
 
 #define CURVED_BOX_PAD 0.0075
-#define MPD_POINTS_BOX(bone, posX, posY, width, height) \
-    MPD_POINTS_CURVED_CORNER(bone, posX, posY, -CURVED_BOX_PAD, -CURVED_BOX_PAD), {}, \
-    MPD_POINTS_CURVED_CORNER(bone, posX + width, posY, CURVED_BOX_PAD, -CURVED_BOX_PAD), {}, \
-    MPD_POINTS_CURVED_CORNER(bone, posX, posY + height, -CURVED_BOX_PAD, CURVED_BOX_PAD), {}, \
-    MPD_POINTS_CURVED_CORNER(bone, posX + width, posY + height, CURVED_BOX_PAD, CURVED_BOX_PAD), {}, \
-    {bone, {posX - CURVED_BOX_PAD, posY}, 1}, {bone, {posX - CURVED_BOX_PAD, posY + height}, 1}, {}, \
-    {bone, {posX + width + CURVED_BOX_PAD, posY}, 1}, {bone, {posX + width + CURVED_BOX_PAD, posY + height}, 1}, {}, \
-    {bone, {posX, posY - CURVED_BOX_PAD}, 1}, {bone, {posX + width, posY - CURVED_BOX_PAD}, 1}, {}, \
-    {bone, {posX, posY + height + CURVED_BOX_PAD}, 1}, {bone, {posX + width, posY + height + CURVED_BOX_PAD}, 1}
+#define MPD_POINTS_BOX_PAD(bone, posX, posY, width, height, pad) \
+    MPD_POINTS_CURVED_CORNER(bone, posX, posY, -pad, -pad), {}, \
+    MPD_POINTS_CURVED_CORNER(bone, posX + width, posY, pad, -pad), {}, \
+    MPD_POINTS_CURVED_CORNER(bone, posX, posY + height, -pad, pad), {}, \
+    MPD_POINTS_CURVED_CORNER(bone, posX + width, posY + height, pad, pad), {}, \
+    {bone, {posX - pad, posY}, 1}, {bone, {posX - pad, posY + height}, 1}, {}, \
+    {bone, {posX + width + pad, posY}, 1}, {bone, {posX + width + pad, posY + height}, 1}, {}, \
+    {bone, {posX, posY - pad}, 1}, {bone, {posX + width, posY - pad}, 1}, {}, \
+    {bone, {posX, posY + height + pad}, 1}, {bone, {posX + width, posY + height + pad}, 1}
+
+#define MPD_POINTS_BOX_PAD_EXTERNAL(bone, posX, posY, width, height, radius) MPD_POINTS_BOX_PAD(bone, (posX+radius), (posY+radius), (width-2*radius), (height-2*radius), radius)
+
+#define MPD_POINTS_BOX(bone, posX, posY, width, height) MPD_POINTS_BOX_PAD(bone, posX, posY, width, height, CURVED_BOX_PAD)
 
 #define MPD_CIRCLE(name, bone, radius) class name##Circle { \
     type = polygon; \
@@ -135,11 +139,11 @@ class Mpd_Arrow_##name##_Triangle { \
     type = line; \
     width = 2; \
     points[] = { \
-        {{startX - MPD_BOX_PAD, startY - MPD_BOX_PAD}, 1}, \
-        {{startX + MPD_BOX_PAD + numChars * MPD_TEXT_WIDTH, startY - MPD_BOX_PAD}, 1}, \
-        {{startX + MPD_BOX_PAD + numChars * MPD_TEXT_WIDTH, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD}, 1}, \
-        {{startX - MPD_BOX_PAD, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD}, 1}, \
-        {{startX - MPD_BOX_PAD, startY - MPD_BOX_PAD}, 1}}; \
+        {{startX - MPD_BOX_PAD_X, startY - MPD_BOX_PAD_Y}, 1}, \
+        {{startX + MPD_BOX_PAD_X + numChars * MPD_TEXT_WIDTH, startY - MPD_BOX_PAD_Y}, 1}, \
+        {{startX + MPD_BOX_PAD_X + numChars * MPD_TEXT_WIDTH, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X, startY - MPD_BOX_PAD_Y}, 1}}; \
 };
 
 #define MPD_TEXT(name, bone, startX, startY, config) class Mpd_Text_##name { \
