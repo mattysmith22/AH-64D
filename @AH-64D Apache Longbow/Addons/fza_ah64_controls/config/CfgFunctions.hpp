@@ -124,10 +124,8 @@ class CfgFunctions
 			class mpdLFUELHandleControl {R;};
 			class mpdLWCADraw {R;};
 			class mpdLWCAHandleControl {R;};
-			class mpdLWPNDestruct {R;};
 			class mpdLWPNDraw {R;};
 			class mpdLWPNHandleControl {R;};
-			class mpdLWPNInit {R;};
 
 			class mpdRASEDestruct {R;};
 			class mpdRASEDraw {R;};

@@ -82,7 +82,6 @@ MPD_TEXT_C(NP_2_NUMBER, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2")
         { bone, {middleX + halfWidth, ENG_TAPE_BOTTOM_Y - startPct * ENG_TAPE_HEIGHT + chevronHeight}, 1}\
     }
 
-#define COMMA ,
 
 #define ENG_TORQUE_TAPE(num, posX, textInd)\
     class Tapes {\

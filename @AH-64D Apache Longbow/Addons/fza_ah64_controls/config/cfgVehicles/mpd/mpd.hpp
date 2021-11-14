@@ -26,6 +26,7 @@ class Bones {
 class Draw
 {
     class Wpn {
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WPN);
         #include "page_wpn_draw.hpp"
     }
     class Menu {

@@ -894,8 +894,6 @@ class CfgVehicles
 		};
 		class MFD
 		{
-			#include "cfgVehicles\mpd\mpd_defines.hpp"
-			#include "\fza_ah64_controls\headers\mfdConstants.h"
 			class UFD {
 				topLeft = "PLT_UFD_TL";
 				topRight = "PLT_UFD_TR";

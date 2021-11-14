@@ -33,9 +33,8 @@ for "_pylon" from 0 to 12 step 4 do {
             
             for "_i" from 0 to 4 do {
                 if ((_inventory # _i) isEqualTo []) exitWith {
-                    _ammoTexB = getText (configFile >> "CfgAmmo" >> _ammoName >> "fza_wpnPageIconB");
-                    _ammoTexG = getText (configFile >> "CfgAmmo" >> _ammoName >> "fza_wpnPageIconG");
-                    _inventory set [_i, [_ammoName, _ammoQty, [_pylon], _ammoTexB, _ammoTexG]];
+                    _ammoText = getText (configFile >> "CfgAmmo" >> _ammoName >> "fza_shortCode");
+                    _inventory set [_i, [_ammoName, _ammoQty, [_pylon], _ammoText]];
                 };
                 if (_inventory # _i # 0 == _ammoName) exitWith {
                     _inventory # _i set [1, _ammoQty + _inventory # _i # 1];

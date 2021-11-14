@@ -25,5 +25,5 @@ _nextFireMode = switch (_fireMode) do {
 	case "LoalDistance": {"Cruise"};
 	default {["Unknown missile fire mode: %1", _fireMode] call BIS_fnc_error};
 };
-[_heli, [0], _weapon, _nextFireMode, _magazine] call fza_fnc_weaponSelectFireMode;
+[_heli, [0], _weapon, _nextFireMode] call fza_fnc_weaponSelectFireMode;
 _heli setVariable ["fza_ah64_ltype", _nextFireMode, true];

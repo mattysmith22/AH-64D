@@ -17,6 +17,10 @@ class CfgPatches
 /*extern*/ class SensorTemplatePassiveRadar;
 /*extern*/ class SensorTemplateLaser;
 /*extern*/ class SensorTemplateNV;
+
+#include "config\cfgVehicles\mpd\mpd_defines.hpp"
+#include "\fza_ah64_controls\headers\mfdConstants.h"
+
 #include "config\defines.hpp"
 #include "config\misc.hpp"
 #include "config\CfgAnimationSourceSounds.hpp"

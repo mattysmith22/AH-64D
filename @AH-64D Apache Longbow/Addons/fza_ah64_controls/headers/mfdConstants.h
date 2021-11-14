@@ -80,17 +80,31 @@
 #define MFD_TEXT_IND_ENG_WCA_8 18
 
 //Weapon Page
+
+// 0 when safe, 1 when armed.
 #define MFD_IND_WPN_MASTER_ARM 0
 #define MFD_IND_WPN_CHAFF_ARM 1
+
+// 1-indexed position of the selected hellfire
 #define MFD_IND_WPN_SELECTED_HF 2
+// 1-indexed position of the selected rocket.
 #define MFD_IND_WPN_SELECTED_RKT 3
+// Current WASed/Selected weapon - 0 - None, 1 - Gun, 2 - Rkt, 3 - Msl, 4 - ATAS (joking)
 #define MFD_IND_WPN_WAS 4
 #define MFD_IND_WPN_SELECTED_WPN 5
-#define MFD_IND_WPN_SELECTED_BURST_LIMIT 6
-#define MFD_IND_WPN_SELECTED_RKT_INV 6
-#define MFD_IND_WPN_SELECTED_MSL_TYPE 6
-#define MFD_IND_WPN_SELECTED_PRI_CH 7
-#define MFD_IND_WPN_SELECTED_ALT_CH 8
+// Whether that rocket pod is present. 0 - neither pod is present, 1 - only (1/2) is present, 2 - only (3/4) is present, 3 - (1/2) and (3/4) present
+#define MFD_IND_WPN_RKT_1_4_STATE 6
+#define MFD_IND_WPN_RKT_2_3_STATE 7
+
+// 1-indexed (from top) selected burst limit
+#define MFD_IND_WPN_SELECTED_BURST_LIMIT 8
+// 1-indexed (from top) selected burst limit
+#define MFD_IND_WPN_SELECTED_RKT_INV 8
+// 0 for SAL, 1 for RF
+#define MFD_IND_WPN_SELECTED_MSL_TYPE 8
+// 0-indexed missile channel selection for primary and alt
+#define MFD_IND_WPN_SELECTED_PRI_CH 9
+#define MFD_IND_WPN_SELECTED_ALT_CH 10
 
 #define MFD_TEXT_IND_WPN_ACQ 0
 #define MFD_TEXT_IND_WPN_SIGHT 1
@@ -100,16 +114,17 @@
 #define MFD_TEXT_IND_WPN_GUN_ROUNDS 5
 
 #define MFD_TEXT_IND_WPN_RKT_INV_1_NAME 6
-#define MFD_TEXT_IND_WPN_RKT_INV_1_QTY 7
-#define MFD_TEXT_IND_WPN_RKT_INV_2_NAME 8
-#define MFD_TEXT_IND_WPN_RKT_INV_2_QTY 9
-#define MFD_TEXT_IND_WPN_RKT_INV_3_NAME 10
-#define MFD_TEXT_IND_WPN_RKT_INV_3_QTY 11
-#define MFD_TEXT_IND_WPN_RKT_INV_4_NAME 12
-#define MFD_TEXT_IND_WPN_RKT_INV_4_QTY 13
-#define MFD_TEXT_IND_WPN_RKT_INV_5_NAME 14
+#define MFD_TEXT_IND_WPN_RKT_INV_2_NAME 7
+#define MFD_TEXT_IND_WPN_RKT_INV_3_NAME 8
+#define MFD_TEXT_IND_WPN_RKT_INV_4_NAME 9
+#define MFD_TEXT_IND_WPN_RKT_INV_5_NAME 10
+#define MFD_TEXT_IND_WPN_RKT_INV_1_QTY 11
+#define MFD_TEXT_IND_WPN_RKT_INV_2_QTY 12
+#define MFD_TEXT_IND_WPN_RKT_INV_3_QTY 13
+#define MFD_TEXT_IND_WPN_RKT_INV_4_QTY 14
 #define MFD_TEXT_IND_WPN_RKT_INV_5_QTY 15
 #define MFD_TEXT_IND_WPN_RKT_TOT_QTY 16
+#define MFD_TEXT_IND_WPN_RKT_SALVO 17
 
 #define MFD_TEXT_IND_WPN_MSL_TRAJ 6
 #define MFD_TEXT_IND_WPN_MSL_PRI_CODE 7
@@ -119,6 +134,9 @@
 #define MFD_TEXT_IND_WPN_MSL_CHAN_3_CODE 11
 #define MFD_TEXT_IND_WPN_MSL_CHAN_4_CODE 12
 #define MFD_TEXT_IND_WPN_MSL_SAL_SEL 13
+//Text on selected missile
+#define MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1 14
+#define MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2 15
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF 0
@@ -127,5 +145,6 @@
 #define MPD_PAGE_WCA 3
 #define MPD_PAGE_FUEL 4
 #define MPD_PAGE_ENG 5
+#define MPD_PAGE_WPN 6
 
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_R, MFD_OFFSET_L] select _leftSide) + (num))

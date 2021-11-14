@@ -376,8 +376,6 @@ class CfgAmmo
 		ace_frag_enabled 			= 0;
 		ace_frag_skip 				= 1;
 
-		fza_wpnPageIconB 			= "";
-		fza_wpnPageIconG 			= "";
 		fza_shortCode 				= "";
 		soundfly[]  				= {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
 		soundsetexplosion[]  		= {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
@@ -419,8 +417,6 @@ class CfgAmmo
 	};
 	class fza_275_m151: fza_275_base
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6PD-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
 		fza_shortCode 				= "6PD";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m151_wep";
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m151";	
@@ -431,8 +427,6 @@ class CfgAmmo
 	};
 	class fza_275_m229: fza_275_base
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6RC-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6RC-G_ca.paa";
 		fza_shortCode 				= "6RC";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m229_wep";	
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m229";	
@@ -445,8 +439,6 @@ class CfgAmmo
 	};
 	class fza_275_m261: fza_275_base 
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6MP-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6MP-G_ca.paa";
 		fza_shortCode 				= "6MP";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m261";	
@@ -465,9 +457,7 @@ class CfgAmmo
 		cost 						= 100;
 	};
 	class fza_275_m257: fza_275_base 
-	{	
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6IL-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6IL-G_ca.paa";
+	{
 		fza_shortCode 				= "6IL";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m261";
@@ -490,8 +480,6 @@ class CfgAmmo
 	};
 	class fza_275_m255: fza_275_base 
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6FL-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6FL-G_ca.paa";
 		fza_shortCode 				= "6FL";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m261";
