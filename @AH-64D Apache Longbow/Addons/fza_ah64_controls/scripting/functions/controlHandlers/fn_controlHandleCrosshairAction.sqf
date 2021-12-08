@@ -40,7 +40,7 @@ private _clickSound = ["none"];
 switch (_system) do {
 	case "lmpd";
 	case "rmpd" : {
-		_clickSound = [_heli, _system, _control] call fza_fnc_mpdHandleControl;
+		_clickSound = [_heli, _system, _control] call fza_mpd_fnc_handleControl;
 	};
 	case "fire": {
 		_clickSound = [_heli, _system, _control] call fza_fnc_fireHandleControl;

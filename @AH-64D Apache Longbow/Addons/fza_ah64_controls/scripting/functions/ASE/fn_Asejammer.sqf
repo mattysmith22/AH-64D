@@ -43,7 +43,7 @@ if (_counter % 2 == 1) exitWith {};
 
 if(!(_hostile in fza_ah64_threatfiring)) then {fza_ah64_threatfiring = fza_ah64_threatfiring + [_hostile];};
 if (_heli getVariable "fza_ah64_aseautopage" == 2) then {
-        [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
+        [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
     };
 
 {

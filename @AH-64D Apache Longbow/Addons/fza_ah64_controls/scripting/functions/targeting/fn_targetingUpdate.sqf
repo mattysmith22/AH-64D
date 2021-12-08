@@ -32,7 +32,7 @@ fza_ah64_aseAudio = fza_ah64_asethreats;
 				["fza_ah64_rdr_track", 0.1] spawn fza_fnc_playAudio;
 			};
 			if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
-				[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
+				[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 			};
 		};
 		if !((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.1) || (alive _x) || (true == isVehicleRadarOn vehicle _x) && !(_x in fza_ah64_threattracking)) then {

@@ -1,7 +1,7 @@
 #include "BIS_AddonInfo.hpp"
 class CfgPatches
 {
-	class fza_ah64_US
+	class fza_ah64_controls
 	{
 		units[] = {"fza_ah64base","fza_ah64d_b2e","fza_ah64d_b2e_nr"};
 		author = "Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
@@ -17,9 +17,6 @@ class CfgPatches
 /*extern*/ class SensorTemplatePassiveRadar;
 /*extern*/ class SensorTemplateLaser;
 /*extern*/ class SensorTemplateNV;
-
-#include "config\cfgVehicles\mpd\mpd_defines.hpp"
-#include "\fza_ah64_controls\headers\mfdConstants.h"
 
 #include "config\defines.hpp"
 #include "config\misc.hpp"

@@ -13,7 +13,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\avionics";
 			class avionicsSlipIndicator {R;};
-		}
+		};
 		class controlHandlers
 		{
 			file = "\fza_ah64_controls\scripting\functions\controlHandlers";
@@ -39,7 +39,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\damage";
 			class damageSystem {R;};
 			class damageM230 {R;};
-		}
+		};
 		class engine
 		{
 			file = "\fza_ah64_controls\scripting\functions\engine";
@@ -73,12 +73,12 @@ class CfgFunctions
 			class eventGetIn {R;};
 			class eventGetOut {R;};
 			class eventInit {R;};
-		}
+		};
 		class fcr
 		{
 			file = "\fza_ah64_controls\scripting\functions\fcr";
 			class fcrlongbow{R;};
-		}
+		};
 		class fire
 		{
 			file = "\fza_ah64_controls\scripting\functions\fire";
@@ -87,7 +87,7 @@ class CfgFunctions
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
 			class fxMuzzle {R;};
-		}
+		};
 		class ihadss
 		{
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
@@ -101,76 +101,22 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
 			class laserDisarm {R;};
-		}
+		};
 		class lighting
 		{
 			file = "\fza_ah64_controls\scripting\functions\lighting";
 			class lightHandleControl {R;};
-		}
-		class mpd
-		{
-			file = "\fza_ah64_controls\scripting\functions\mpd";
-			class mpdGetCurrentDisplay {R;};
-			class mpdHandleControl {R;};
-			class mpdHandleZoom {R;};
-
-
-			class mpdLDMSHandleControl {R;};
-			class mpdLENGDraw {R;};
-			class mpdLENGHandleControl {R;};
-			class mpdLFLTDraw {R;};
-			class mpdLFLTHandleControl {R;};
-			class mpdLFUELDraw {R;};
-			class mpdLFUELHandleControl {R;};
-			class mpdLWCADraw {R;};
-			class mpdLWCAHandleControl {R;};
-			class mpdLWPNDraw {R;};
-			class mpdLWPNHandleControl {R;};
-
-			class mpdRASEDestruct {R;};
-			class mpdRASEDraw {R;};
-			class mpdRASEHandleControl {R;};
-			class mpdRASEInit {R;};
-			class mpdRDMSDestruct {R;};
-			class mpdRDMSDraw {R;};
-			class mpdRDMSHandleControl {R;};
-			class mpdRDMSInit {R;};
-			class mpdRENGDestruct {R;};
-			class mpdRENGDraw {R;};
-			class mpdRENGHandleControl {R;};
-			class mpdRENGInit {R;};
-			class mpdRFCRDestruct {R;};
-			class mpdRFCRDraw {R;};
-			class mpdRFCRHandleControl {R;};
-			class mpdRFCRInit {R;};
-			class mpdRTSDDestruct {R;};
-			class mpdRTSDDraw {R;};
-			class mpdRTSDHandleControl {R;};
-			class mpdRTSDInit {R;};
-			class mpdRWCADestruct {R;};
-			class mpdRWCADraw {R;};
-			class mpdRWCAHandleControl {R;};
-			class mpdRWCAInit {R;};
-			
-			class mpdSetDisplay {R;};
-			class mpdUpdateDisplays {R;};
-			class mpdUpdateMap {R;};
-			class mpdUpdatePoints {R;};
-
-			class mpdcycleL {R;};
-			class mpdcycleR {R;};
-			class ufd {R;};
 		};
 		class navigation {
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
-		}
+		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzSend {R;};
-		}
+		};
 		class sfmplus {
 			file = "\fza_ah64_controls\scripting\functions\sfmplus";
 			class sfmplusGetData {R;};
