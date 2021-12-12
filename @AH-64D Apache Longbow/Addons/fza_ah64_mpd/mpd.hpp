@@ -21,6 +21,7 @@ class Bones {
     };
     #include "pages\flt_bones.hpp"
     #include "pages\eng_bones.hpp"
+    #include "pages\tsd_bones.hpp"
 };
 // HUD-Elements definitions
 class Draw
@@ -48,5 +49,9 @@ class Draw
     class Fuel{
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FUEL);
         #include "pages\fuel_draw.hpp"
+    };
+    class Tsd{
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_TSD);
+        #include "pages\tsd_draw.hpp"
     };
 };

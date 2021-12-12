@@ -26,7 +26,7 @@
 #define MPD_POS_BUTTON_LR_6_Y 0.775
 
 #define MPD_POS_BUTTON_T_Y (0.01 + MPD_ARROW_PAD)
-#define MPD_POS_BUTTON_B_Y (0.970-0.043)
+#define MPD_POS_BUTTON_B_Y (0.970-0.03)
 #define MPD_POS_BUTTON_TB_1_X 0.21
 #define MPD_POS_BUTTON_TB_2_X 0.33
 #define MPD_POS_BUTTON_TB_3_X 0.45
@@ -81,6 +81,12 @@
 #define MPD_POINTS_BOX_PAD_EXTERNAL(bone, posX, posY, width, height, radius) MPD_POINTS_BOX_PAD(bone, (posX+radius), (posY+radius), (width-2*radius), (height-2*radius), radius)
 
 #define MPD_POINTS_BOX(bone, posX, posY, width, height) MPD_POINTS_BOX_PAD(bone, posX, posY, width, height, CURVED_BOX_PAD)
+#define MPD_POINTS_BOX_POLY(bone, posX, posY, width, height) {\
+    {Null, {posX-CURVED_BOX_PAD,posY-CURVED_BOX_PAD}, 1},\
+    {Null, {posX+width+CURVED_BOX_PAD, posY-CURVED_BOX_PAD}, 1},\
+    {Null, {posX+width+CURVED_BOX_PAD, posY+height+CURVED_BOX_PAD}, 1},\
+    {Null, {posX-CURVED_BOX_PAD, posY+height+CURVED_BOX_PAD}, 1},\
+}
 
 #define MPD_CIRCLE(name, bone, radius) class name##Circle { \
     type = polygon; \
@@ -195,3 +201,13 @@ class Mpd_Arrow_##name##_Triangle { \
 
 #define MPD_BOX_ARROW_C(name, startX, startY, numChars) MPD_BOX_ARROW_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
 #define MPD_BOX_ARROW_L(name, startX, startY, numChars) MPD_BOX_ARROW_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
+
+#define MPD_TEXT_OCCLUDER_R(bone,startX,startY,numChars) { \
+    {bone, {(startX), (startY)}, 1},\
+    {bone, {(startX) + (numChars) * MPD_TEXT_WIDTH, (startY)}, 1},\
+    {bone, {(startX) + (numChars) * MPD_TEXT_WIDTH, (startY)+MPD_TEXT_HEIGHT}, 1},\
+    {bone, {(startX), (startY)+MPD_TEXT_HEIGHT}, 1}\
+}
+
+#define MPD_TEXT_OCCLUDER_C(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)/2*MPD_TEXT_WIDTH),startY,numChars)
+#define MPD_TEXT_OCCLUDER_L(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)*MPD_TEXT_WIDTH),startY,numChars)

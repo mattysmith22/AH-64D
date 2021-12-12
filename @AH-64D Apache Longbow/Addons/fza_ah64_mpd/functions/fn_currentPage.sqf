@@ -26,4 +26,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_side"];
 
-(_heli getVariable "fza_ah64_mpdPage") # _side
+(_heli getVariable "fza_mpd_mpdState") # _side # 0

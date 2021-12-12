@@ -1,5 +1,4 @@
 params["_heli", "_mpdIndex"];
-#include "\fza_ah64_controls\headers\selections.h"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 //Lbs

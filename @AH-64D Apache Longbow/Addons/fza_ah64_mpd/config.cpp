@@ -12,7 +12,10 @@ class CfgPatches
 
 #include "headers\mpd_defines.hpp"
 #include "headers\mfdConstants.h"
+#include "headers\points.hpp"
 
 #include "CfgFunctions.hpp"
 #include "CfgMagazines.hpp"
 #include "CfgVehicles.hpp"
+
+#include "FzaIconTypes.hpp"

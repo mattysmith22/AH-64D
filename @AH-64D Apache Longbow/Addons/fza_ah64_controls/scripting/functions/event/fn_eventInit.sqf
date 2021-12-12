@@ -80,7 +80,6 @@ _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rangesetting", 0.001]; //1km
 _heli setVariable ["fza_ah64_rocketsalvo", 1];
-_heli setVariable ["fza_ah64_tsdmode", "nav"];
 _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];

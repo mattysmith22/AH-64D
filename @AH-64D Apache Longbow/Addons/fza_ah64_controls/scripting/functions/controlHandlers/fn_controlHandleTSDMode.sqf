@@ -19,12 +19,12 @@ Author:
 	Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-switch(_heli getVariable "fza_ah64_tsdmode") do {
+switch(_heli getVariable "fza_mpd_tsdMode") do {
 	case "nav": {
-		_heli setVariable ["fza_ah64_tsdmode", "atk"];
+		_heli setVariable ["fza_mpd_tsdMode", "atk"];
 		[_heli] call fza_fnc_targetingVariable;
 	};
 	case "atk": {
-		_heli setVariable ["fza_ah64_tsdmode", "nav"];
+		_heli setVariable ["fza_mpd_tsdMode", "nav"];
 	};
 }

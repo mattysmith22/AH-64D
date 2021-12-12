@@ -1,5 +1,5 @@
 #include "\fza_ah64_controls\headers\selections.h"
-params ["_heli", "_system", "_control"];
+params ["_heli", "_mpdIndex", "_control"];
 
 if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
 	switch (_control) do {
@@ -47,7 +47,7 @@ switch (_control) do {
 			[_heli] spawn fza_fnc_laserDisarm;
 		};
 	};
-	case "b1": {
+	case "b2": {
 		//Select M230
 		if (_heli hasweapon "fza_m230") then {
 			_heli selectweapon "fza_m230";
@@ -55,20 +55,14 @@ switch (_control) do {
 			_heli selectweapon "fza_burstlimiter";
 		};
 	};
-	case "b2": {
+	case "b3": {
 		//Select Missile
 		_missileWeps = (_heli weaponsTurret [0]) arrayIntersect _hellfireweps;
 		_curIndex = _missileWeps find (currentWeapon _heli);
 		_nextWep = _missileWeps select ((_curIndex + 1)% count _missileWeps);
 		[_heli, [0], _nextWep, _heli getVariable "fza_ah64_ltype"] call fza_fnc_weaponSelectFireMode;
 	};
-	case "b3": {
-		//Select ATAS
-		if (_heli hasweapon "fza_atas_2") then {
-			_heli selectweapon "fza_atas_2";
-		};
-	};
-	case "b4": {
+	case "b5": {
 		_emptywep = "";
 		_wpncounter = 0;
 		_selectedweapon = 0; {
@@ -88,10 +82,7 @@ switch (_control) do {
 		}
 		foreach(weapons _heli);
 	};
-	case "wpn": {
-		[_heli, 0, "wpn"] call fza_mpd_fnc_setCurrentPage;
-	};
-	case "m": {
-		[_heli, 0, "menu"] call fza_mpd_fnc_setCurrentPage;
+	case "b1": {
+		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
 	};
 };

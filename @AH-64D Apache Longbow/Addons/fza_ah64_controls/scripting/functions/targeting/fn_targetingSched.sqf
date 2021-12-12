@@ -32,7 +32,7 @@ _visibleTargets = switch (true) do {
     case ([_heli, 1] call fza_mpd_fnc_currentPage == "fcr"): {
         [_heli, fza_ah64_dispfcrlist - alldead] call fza_fnc_targetingFilterType;
     };
-    case (([_heli, 1] call fza_mpd_fnc_currentPage == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")): {
+    case (([_heli, 1] call fza_mpd_fnc_currentPage == "tsd") && (_heli getVariable "fza_mpd_tsdMode" == "atk")): {
         [_heli, fza_ah64_tsddisptargs - alldead] call fza_fnc_targetingFilterType;
     };
     default {

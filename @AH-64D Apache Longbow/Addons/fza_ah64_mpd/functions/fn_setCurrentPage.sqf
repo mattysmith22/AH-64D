@@ -29,31 +29,45 @@ Author:
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_side", "_page"];
 
-switch (_side) do {
-	case 0 : {
-		if (_page in ["off", "fail", "menu", "flt", "fuel", "wca", "wpn", "eng"]) then {
-			(_heli getVariable ["fza_ah64_mpdPage", []]) set [0, _page
-			];
-			//TRACE_1("Successfully managed to change page on left MPD to", _page);
-			true;
-		} else {
-			//WARNING(format["Failed to change page on left MPD to %1", _page]);
-			false;
-		};
-	};
-	case 1 : {
-		if (_page in ["off", "fail", "ase", "menu", "eng", "fcr", "tsd", "wca"]) then {
-			(_heli getVariable ["fza_ah64_mpdPage", []]) set [1, _page];
-			//TRACE_1("Successfully managed to change page on right MPD to", _page);
-			true;
-		} else {
-			//WARNING(format["Failed to change page on right MPD to %1", _page]);
-			false;
-		};
-	};
-	default {
-		//ERROR("Tried to change page of invalid MPD");
-		false;
-	};
+// fza_mpd_mpdState = [[_pageName, _pageIndex, _drawFunc, _state],[again]]
+
+private _mpdState = _heli getVariable "fza_mpd_mpdState";
+
+private _config = configFile >> "CfgVehicles" >> typeof _heli >> "FzaMpdPages" >> _page;
+
+if (!isClass _config) exitWith {
+	["Invalid MPD page for %1 : %2", typeof _heli, _page] call BIS_fnc_error;
 };
 
+private _mfdIndex = 0;
+if (isNumber (_config >> "index")) then {
+	_mfdIndex = getNumber (_config >> "index");
+};
+
+private _drawFunc = {};
+if (isText (_config >> "draw")) then {
+	_drawFunc = missionNamespace getVariable getText (_config >> "draw");
+};
+
+private _handleControlFunc = {};
+if (isText (_config >> "handleControl")) then {
+	_handleControlFunc = missionNamespace getVariable getText (_config >> "handleControl");
+};
+
+
+private _state = createHashMap;
+if (isClass (_config >> "InitState")) then {
+	_stateCfg = configProperties [_config >> "InitState", "true", true];
+	_state = createHashMapFromArray (_stateCfg apply {
+		private _ret = nil;
+		if (isNumber _x) then {_ret = getNumber _x};
+		if (isText _x) then {_ret = getText _x};
+		if (isArray _x) then {_ret = getArray _x};
+		[configName _x, _ret];
+	});
+};
+
+private _newState = [_page, _mfdIndex, _drawFunc, _state, _handleControlFunc];
+
+_heli setUserMfdValue [_side + 1, _mfdIndex];
+_mpdState set [_side, _newState];

@@ -10,12 +10,18 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_mpd\functions";
             class currentPage {R;};
+            class drawIcons {R;};
             class drawMap {R;};
-            class drawPoints {R;};
             class handleControl {R;};
             class handleZoom {R;};
             class setCurrentPage {R;};
             class update {R;};
+            class init {R;};
+        };
+        class tsd {
+            file = "\fza_ah64_mpd\functions\tsd";
+            class tsdSHOWDraw {R;};
+            class tsdSHOWHandleControl {R;};
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";
@@ -26,6 +32,8 @@ class CfgFunctions
             class pageFUELDraw {R;};
             class pageFUELHandleControl {R;};
             class pageMENUHandleControl {R;};
+            class pageTSDDraw {R;};
+            class pageTSDHandleControl {R;};
             class pageWCADraw {R;};
             class pageWCAHandleControl {R;};
             class pageWPNDraw {R;};

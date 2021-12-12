@@ -27,7 +27,7 @@ if (_heli getVariable "fza_ah64_pfz_count" == 0) exitwith {
     _heli vehiclechat "PFZ is not selected!";
 };
 
-_markerarea = "fza_ah64_pfz" + format["%1", _pfznum] + "m";
+_markerarea = "fza_ah64_pfz" + format["%1", _pfznum] + "b1";
 _markername = "fza_ah64_pfz" + format["%1", _pfznum] + "n";
 
 deleteMarkerLocal _markerarea;
