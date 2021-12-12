@@ -152,6 +152,17 @@ class Mpd_Arrow_##name##_Triangle { \
         {{startX - MPD_BOX_PAD_X, startY - MPD_BOX_PAD_Y}, 1}}; \
 };
 
+#define MPD_BOX_TALL_R(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \
+    type = line; \
+    width = 2; \
+    points[] = { \
+        {{startX - MPD_BOX_PAD_X, startY - 0.005 - MPD_BOX_PAD_Y - MPD_ARROW_HEIGHT - MPD_ARROW_PAD}, 1}, \
+        {{startX + MPD_BOX_PAD_X + numChars * MPD_TEXT_WIDTH, startY - 0.005 - MPD_BOX_PAD_Y - MPD_ARROW_HEIGHT - MPD_ARROW_PAD}, 1}, \
+        {{startX + MPD_BOX_PAD_X + numChars * MPD_TEXT_WIDTH, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X, startY - 0.005 - MPD_BOX_PAD_Y - MPD_ARROW_HEIGHT - MPD_ARROW_PAD}, 1}}; \
+};
+
 #define MPD_TEXT(name, bone, startX, startY, config) class Mpd_Text_##name { \
     type = text; \
     scale = 1; \
@@ -187,6 +198,9 @@ class Mpd_Arrow_##name##_Triangle { \
 
 #define MPD_BOX_C(name, startX, startY, numChars) MPD_BOX_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
 #define MPD_BOX_L(name, startX, startY, numChars) MPD_BOX_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
+
+#define MPD_BOX_TALL_C(name, startX, startY, numChars) MPD_BOX_TALL_R(name, (startX - numChars / 2 * MPD_TEXT_WIDTH), startY, numChars)
+#define MPD_BOX_TALL_L(name, startX, startY, numChars) MPD_BOX_TALL_R(name, (startX - numChars * MPD_TEXT_WIDTH), startY, numChars)
 
 #define MPD_BOX_ARROW_R(name, startX, startY, numChars) class Mpd_Box_Arrow_##name##_Line { \
     type = line; \

@@ -43,6 +43,9 @@ switch (_control) do {
         private _val = (_heli getVariable "fza_mpd_tsdShowEndr") ;
         _val set [_phase, !(_val # _phase)];
     };
+    case "l6": {
+        _state set ["subPage", 0];
+    };
     case "l5": {
         private _val = (_heli getVariable "fza_mpd_tsdShowPlanTgts") ;
         _val set [_phase, !(_val # _phase)];
