@@ -4,7 +4,7 @@ params["_heli", "_mpdIndex", "_state"];
 private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPage"];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
 
 //Show options
 
@@ -17,8 +17,11 @@ if (_heli getVariable "fza_mpd_tsdMode" == "atk") then {
 } else {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")];
 };
-switch (_state get "subPage") do {
+switch (_state get "subPageVarPage" select 0) do {
     case 1: { // Show
         _this call fza_mpd_fnc_tsdShowDraw;
     };
+    case 2: {
+        _this call fza_mpd_fnc_tsdWptDraw;
+    }
 };

@@ -2,4 +2,3 @@
 #define TSD_ICON_TYPE_HZ 1
 #define TSD_ICON_TYPE_CM 2
 #define TSD_ICON_TYPE_TG 3
-

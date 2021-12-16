@@ -58,7 +58,7 @@ class CfgVehicles {
 				draw = "fza_mpd_fnc_pageTSDDraw";
 				handleControl = "fza_mpd_fnc_pageTSDHandleControl";
 				class InitState {
-					subPage = 0;
+					subPageVarPage[] = {0, 0};
 				};
 			};
 		};

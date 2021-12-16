@@ -22,6 +22,8 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\tsd";
             class tsdSHOWDraw {R;};
             class tsdSHOWHandleControl {R;};
+            class tsdWPTDraw {R;};
+            class tsdWPTHandleControl {R;};
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";

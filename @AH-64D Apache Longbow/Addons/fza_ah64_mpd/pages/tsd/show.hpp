@@ -1,3 +1,5 @@
+#include "components\info_boxes.hpp"
+
 class Common {
     class Occluders {
         color[] = {0,0,0,1};
@@ -113,6 +115,9 @@ class AtkOnly {
         };
     };
     
+    //R6
+    MPD_TEXT_L(OBST, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("TOTAL TARGETS/OBSTACLES"))
+
     //B6
     class HAZBox {
         condition = MPD_COND_USER(MFD_IND_TSD_SHOW_HAZ);

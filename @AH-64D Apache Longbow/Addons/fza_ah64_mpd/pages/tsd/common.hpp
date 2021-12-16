@@ -63,7 +63,7 @@ class Outline {
         {{0.5, 0.9}, 1}, {{0.5, 0.885}, 1}, {}, //Bottom 0km indicator
         {{0.625, 0.9}, 1}, {{0.625, 0.885}, 1}, {}, //Bottom 2km indicator
         {{0.75, 0.9}, 1}, {{0.75, 0.885}, 1}, {}, //Bottom 4km indicator
-        {{0.875, 0.9}, 1}, {{0.875, 0.885}, 1} //Bottom 6km indicator
+        {{0.875, 0.9}, 1}, {{0.875, 0.885}, 1}, //Bottom 6km indicator
     };
 };
 
@@ -107,7 +107,7 @@ class Ownship {
             {},
             //Ownship center dot
             {"Tsd_Ownship", { 0.000,  0.0025}, 1},
-            {"Tsd_Ownship", { 0.000, -0.0025}, 1}
+            {"Tsd_Ownship", { 0.000, -0.0025}, 1},
         };
     };
 };
@@ -138,6 +138,6 @@ class Boxes {
     width = 3;
     points[] = {
         MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {}, //Heading
-        MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01) //Heading
+        MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {}, //Heading
     };
 };

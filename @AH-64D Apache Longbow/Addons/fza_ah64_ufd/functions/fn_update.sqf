@@ -130,10 +130,10 @@ do {
                 ]];
             } forEach _radios;
         } else {
-            _heli setUserMFDText [5, "<>VH 139.500* H8G65      L1 149.500"]; 
-            _heli setUserMFDText [6, "<>UH 240.500* P3R56 C3   L2 249.500"]; 
-            _heli setUserMFDText [7, "<>F1  39.075  J8L68 C5 H T1  45.500"]; 
-            _heli setUserMFDText [8, "<>F2  49.500  B5Z23 C2   L3  69.525"]; 
+            _heli setUserMFDText [5, "<>VH 139.500* -GO--      L1 149.500"]; 
+            _heli setUserMFDText [6, "<>UH 240.500* -FCK- C3   L2 249.500"]; 
+            _heli setUserMFDText [7, "<>F1  39.075  -UR-- C5 H T1  45.500"]; 
+            _heli setUserMFDText [8, "<>F2  49.500  -SLF- C2   L3  69.525"];
         }
 
     } else {
