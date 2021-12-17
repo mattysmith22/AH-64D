@@ -53,12 +53,13 @@ class CfgVehicles {
 				draw = "fza_mpd_fnc_pageWpnDraw";
 				handleControl = "fza_mpd_fnc_pageWPNHandleControl";	
 			};
+			#include "\fza_ah64_mpd\headers\tsd.hpp"
 			class Tsd {
 				index = MPD_PAGE_TSD;
 				draw = "fza_mpd_fnc_pageTSDDraw";
 				handleControl = "fza_mpd_fnc_pageTSDHandleControl";
 				class InitState {
-					subPageVarPage[] = {0, 0};
+					subPageVarPage[] = {0,0};
 				};
 			};
 		};
