@@ -82,6 +82,9 @@ switch (_system) do {
 	case "light": {
 		_clickSound = [_heli, _system, _control] call fza_fnc_lightHandleControl;
 	};
+	case "ku": {
+		call fza_ku_fnc_toggleInput;
+	}
 };
 
 // I haven't gotten these to work reliably enough to make it worth adding. Leaving here just in case that changes

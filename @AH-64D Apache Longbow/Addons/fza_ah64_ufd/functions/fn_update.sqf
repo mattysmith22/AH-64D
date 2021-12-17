@@ -97,7 +97,7 @@ do {
         private _advisories = (_wcas select {_x # 0 == WCA_ADVISORY}) apply {_x # 2};
 
         for "_i" from 0 to 5 do {
-            _heli setUserMFDText [MFD_IND_UFDTEXT0 + _i, format["%1|%2|%3",
+            _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
                 if (count _warnings > _i) then {_warnings # _i} else {"          "},
                 if (count _cautions > _i) then {_cautions # _i} else {"           "},
                 if (count _advisories > _i) then {_advisories # _i} else {"          "}
@@ -125,7 +125,7 @@ do {
                 private _frequencyTXOut = [[_frequencyTX, 0, 3, false] call CBA_fnc_formatNumber, 7] call _padLeft;
                 private _radioChannelOut = [str _radioChannel, 6] call _padLeft;
                 private _labelOut = [_label select [0, 5], 5] call _padLeft; 
-                _heli setUserMFDText [MFD_IND_UFDTEXT0 + 5 + _forEachIndex, format["%1-%2 %3* %4 %5 %6 "
+                _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + 5 + _forEachIndex, format["%1-%2 %3* %4 %5 %6 "
                     ,_transmit, _radioName, _frequencyTXOut, _labelOut, _radioOther # _forEachIndex, _radioChannel
                 ]];
             } forEach _radios;

@@ -2,8 +2,10 @@
 #define MFD_IND_BATT 0
 #define MFD_IND_PAGE_LEFT 1
 #define MFD_IND_PAGE_RIGHT 2
+#define MFD_IND_KU_STATE 3
 
-#define MFD_IND_UFDTEXT0 0
+#define MFD_TEXT_IND_UFDTEXT0 0
+#define MFD_TEXT_IND_KU 9
 #define MFD_OFFSET_L 10
 #define MFD_OFFSET_R 30
 

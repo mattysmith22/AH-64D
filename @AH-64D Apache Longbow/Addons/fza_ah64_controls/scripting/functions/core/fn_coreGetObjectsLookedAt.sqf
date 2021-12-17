@@ -119,7 +119,9 @@ private _controls =  [
 	["nvs_mode_sw", "nvs_mode_swg", "nvs", "mode", 0.03, "NVS Mode"],
 
 	["plt_flood", "cpg_flood", "light", "floodlight", 0.03, "Floodlight"],
-	["plt_anticollision", "", "light", "anticollision", 0.03, "Anti-Collision Light"]
+	["plt_anticollision", "", "light", "anticollision", 0.03, "Anti-Collision Light"],
+
+	["plt_ku_ctr", "cpg_ku_ctr", "ku", "activate", 0.15, "Activate KU input"]
 ];
 _controls = _controls apply {
 	_x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity", "_description"];
