@@ -5,6 +5,7 @@ import glob
 import winreg
 import urllib.request
 import zipfile
+from pathlib import Path
 
 env = Environment(tools=[])
 addonsFolder = r"@AH-64D Apache Longbow\Addons"
@@ -64,16 +65,25 @@ env.Help("\n")
 
 env.Clean(["buildTools", "all"], r"buildTools")
 env.Clean(["docs", "all"], ["docs", r"naturaldocs\Working Data"])
+env.Clean(["all"], [os.path.join(addonsFolder,"fza_ah64_*.pbo"), os.path.join(addonsFolder,"fza_ah64_*.bisign")])
 
-
+symlinkList = []
 try:
     a3dir = arma3Path()
-    symlinks = env.Alias("symlinks", [], [f'mklink /J "{os.path.join(a3dir, pbo)}" "{os.path.join(addonsFolder, pbo)}"' for pbo in linkablePbos])
-    env.AlwaysBuild(symlinks)
+    for pbo in linkablePbos:
+        symlinkList.append([os.path.join(a3dir, pbo), os.path.join(addonsFolder, pbo)])
+except Exception as e:
+    print(f"Error: {e} Couldn't find arma 3, cannot make or remove symlinks")
 
-    removeSymlinks = env.Alias("rmsymlinks", [], [f'fsutil reparsepoint delete "{os.path.join(a3dir, pbo)}"' for pbo in linkablePbos] + [Delete(os.path.join(a3dir, pbo)) for pbo in linkablePbos])
-    env.AlwaysBuild(removeSymlinks)
-except:
-    print("Error: Couldn't find arma 3, cannot make or remove symlinks")
+if (Path("P:").is_dir()):
+    for pbo in linkablePbos:
+        symlinkList.append([os.path.join("P:/", pbo), os.path.join(addonsFolder, pbo)])
+else:
+    print("Warning: project drive is not mounted.")
+
+symlinks = env.Alias("symlinks", [], [f'mklink /J "{symlink[0]}" "{symlink[1]}" & exit 0' for symlink in symlinkList])
+removeSymlinks = env.Alias("rmsymlinks", [], [f'fsutil reparsepoint delete "{symlink[0]}" & exit 0' for symlink in symlinkList] + [Delete(symlink[0]) for symlink in symlinkList])
+env.AlwaysBuild(symlinks)
+env.AlwaysBuild(removeSymlinks)
 
 env.Default("all")
